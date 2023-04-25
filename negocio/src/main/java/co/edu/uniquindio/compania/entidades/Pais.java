@@ -23,4 +23,8 @@ public class Pais implements Serializable {
     private Integer codigo;
 
     private String nombre;
+
+    public Pais(String nombre) {
+        this.nombre = nombre;
+    }
 }

@@ -29,4 +29,11 @@ public class Cliente implements Serializable {
     private String correo;
 
     private String telefono;
+
+    public Cliente(String nombre, String apellido, String correo, String telefono) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.telefono = telefono;
+    }
 }

@@ -24,4 +24,9 @@ public class DetalleVenta implements Serializable {
     private Integer Cantidad;
 
     private Double precioTotal;
+
+    public DetalleVenta(Integer cantidad, Double precioTotal) {
+        Cantidad = cantidad;
+        this.precioTotal = precioTotal;
+    }
 }

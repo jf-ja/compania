@@ -27,4 +27,10 @@ public class InventarioSalida {
     private String descripcion;
 
     private LocalDate fechaSalida;
+
+    public InventarioSalida(Integer cantidad, String descripcion, LocalDate fechaSalida) {
+        this.cantidad = cantidad;
+        this.descripcion = descripcion;
+        this.fechaSalida = fechaSalida;
+    }
 }

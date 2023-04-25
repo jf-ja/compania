@@ -23,4 +23,8 @@ public class Departamento implements Serializable {
     private Integer codigo;
 
     private String nombre;
+
+    public Departamento(String nombre) {
+        this.nombre = nombre;
+    }
 }

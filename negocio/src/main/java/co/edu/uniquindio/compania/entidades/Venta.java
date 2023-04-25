@@ -28,4 +28,10 @@ public class Venta implements Serializable {
     private String descripcion;
 
     private Boolean estado;
+
+    public Venta(LocalDate fecha, String descripcion, Boolean estado) {
+        this.fecha = fecha;
+        this.descripcion = descripcion;
+        this.estado = estado;
+    }
 }

@@ -32,5 +32,11 @@ public class Vendedor implements Serializable {
 
     private Double salario;
 
-
+    public Vendedor(String nombre, String apellido, String correo, String telefono, Double salario) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.salario = salario;
+    }
 }

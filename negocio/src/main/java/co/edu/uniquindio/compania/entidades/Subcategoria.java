@@ -23,4 +23,8 @@ public class Subcategoria implements Serializable {
     private Integer codigo;
 
     private String nombre;
+
+    public Subcategoria(String nombre) {
+        this.nombre = nombre;
+    }
 }

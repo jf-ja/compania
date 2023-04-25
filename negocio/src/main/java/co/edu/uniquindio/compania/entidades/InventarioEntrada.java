@@ -28,4 +28,10 @@ public class InventarioEntrada implements Serializable {
     private String descripcion;
 
     private LocalDate fechaEntrada;
+
+    public InventarioEntrada(Integer cantidad, String descripcion, LocalDate fechaEntrada) {
+        this.cantidad = cantidad;
+        this.descripcion = descripcion;
+        this.fechaEntrada = fechaEntrada;
+    }
 }

@@ -31,4 +31,12 @@ public class Transportador implements Serializable {
     private String vehiculo;
 
     private String placa;
+
+    public Transportador(String nombre, String apellido, Double salario, String vehiculo, String placa) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.salario = salario;
+        this.vehiculo = vehiculo;
+        this.placa = placa;
+    }
 }

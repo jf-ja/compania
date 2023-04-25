@@ -33,4 +33,11 @@ public class Afiliacion implements Serializable {
 
     private Double descuentoCompra;
 
+    public Afiliacion(Integer nivel, Boolean estado, LocalDate fecha, Double porcentaje, Double descuentoCompra) {
+        this.nivel = nivel;
+        this.estado = estado;
+        this.fecha = fecha;
+        this.porcentaje = porcentaje;
+        this.descuentoCompra = descuentoCompra;
+    }
 }

@@ -25,4 +25,9 @@ public class Direccion implements Serializable {
     private String direccion;
 
     private String tipo;
+
+    public Direccion(String direccion, String tipo) {
+        this.direccion = direccion;
+        this.tipo = tipo;
+    }
 }

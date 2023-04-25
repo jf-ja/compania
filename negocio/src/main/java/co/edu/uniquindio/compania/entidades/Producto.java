@@ -29,4 +29,11 @@ public class Producto implements Serializable {
     private String descripcion;
 
     private Integer stock;
+
+    public Producto(String nombre, Double precio, String descripcion, Integer stock) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.stock = stock;
+    }
 }
