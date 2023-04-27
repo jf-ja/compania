@@ -2,11 +2,9 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -28,6 +26,13 @@ public class InventarioSalida {
 
     private LocalDate fechaSalida;
 
+    @ManyToOne
+    private Producto producto;
+
+    @ManyToOne
+    private Vendedor vendedor;
+
+    @Builder
     public InventarioSalida(Integer cantidad, String descripcion, LocalDate fechaSalida) {
         this.cantidad = cantidad;
         this.descripcion = descripcion;

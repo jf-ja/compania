@@ -3,11 +3,9 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @ToString
@@ -24,6 +22,14 @@ public class Ciudad implements Serializable {
 
     private String nombre;
 
+    @ManyToOne
+    private Departamento departamento;
+
+    @ToString.Exclude
+    @OneToMany (mappedBy = "ciudad")
+    private List<Direccion> direcciones;
+
+    @Builder
     public Ciudad(String nombre) {
         this.nombre = nombre;
     }

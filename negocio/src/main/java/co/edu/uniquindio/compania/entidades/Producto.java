@@ -3,11 +3,9 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @ToString
@@ -30,6 +28,22 @@ public class Producto implements Serializable {
 
     private Integer stock;
 
+    @ManyToOne
+    private Subcategoria subCategoria;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "producto")
+    private List<InventarioEntrada> inventarioEntradas;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "producto")
+    private List<InventarioSalida> inventarioSalidas;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "producto")
+    private List<DetalleVenta> detalleVentas;
+
+    @Builder
     public Producto(String nombre, Double precio, String descripcion, Integer stock) {
         this.nombre = nombre;
         this.precio = precio;

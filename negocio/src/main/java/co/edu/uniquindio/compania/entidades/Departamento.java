@@ -3,11 +3,9 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @ToString
@@ -24,6 +22,13 @@ public class Departamento implements Serializable {
 
     private String nombre;
 
+    @ManyToOne
+    private Pais pais;
+
+    @ToString.Exclude
+    @OneToMany (mappedBy = "departamento")
+    private List<Ciudad> ciudades;
+    @Builder
     public Departamento(String nombre) {
         this.nombre = nombre;
     }

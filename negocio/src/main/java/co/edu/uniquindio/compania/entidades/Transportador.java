@@ -3,11 +3,9 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @ToString
@@ -32,6 +30,11 @@ public class Transportador implements Serializable {
 
     private String placa;
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "transportador")
+    private List<Envio> envios;
+
+    @Builder
     public Transportador(String nombre, String apellido, Double salario, String vehiculo, String placa) {
         this.nombre = nombre;
         this.apellido = apellido;

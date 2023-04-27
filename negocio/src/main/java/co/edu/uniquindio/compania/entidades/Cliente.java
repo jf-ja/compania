@@ -3,11 +3,9 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @ToString
@@ -30,6 +28,14 @@ public class Cliente implements Serializable {
 
     private String telefono;
 
+    @ManyToOne
+    private Direccion direccion;
+
+    @ToString.Exclude
+    @OneToMany (mappedBy = "cliente")
+    private List<Venta> ventas;
+
+    @Builder
     public Cliente(String nombre, String apellido, String correo, String telefono) {
         this.nombre = nombre;
         this.apellido = apellido;

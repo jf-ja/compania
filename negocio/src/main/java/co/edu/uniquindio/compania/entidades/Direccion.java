@@ -3,11 +3,9 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @ToString
@@ -26,6 +24,22 @@ public class Direccion implements Serializable {
 
     private String tipo;
 
+    @ManyToOne
+    private Ciudad ciudad;
+
+    @ToString.Exclude
+    @OneToMany (mappedBy = "direccion")
+    private List<Vendedor> vendedores;
+
+    @ToString.Exclude
+    @OneToMany (mappedBy = "direccion")
+    private List<Cliente> clientes;
+
+    @ToString.Exclude
+    @OneToMany (mappedBy = "direccion")
+    private List<Envio> envios;
+
+    @Builder
     public Direccion(String direccion, String tipo) {
         this.direccion = direccion;
         this.tipo = tipo;

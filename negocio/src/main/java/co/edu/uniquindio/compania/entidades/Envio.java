@@ -2,10 +2,7 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -20,6 +17,15 @@ public class Envio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer codigo;
+
+    @OneToOne
+    private Venta venta;
+
+    @ManyToOne
+    private Direccion direccion;
+
+    @ManyToOne
+    private Transportador transportador;
 
 
 }

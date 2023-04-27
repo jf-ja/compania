@@ -3,11 +3,9 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @ToString
@@ -24,6 +22,11 @@ public class Pais implements Serializable {
 
     private String nombre;
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "pais")
+    private List<Departamento> departamentos;
+
+    @Builder
     public Pais(String nombre) {
         this.nombre = nombre;
     }

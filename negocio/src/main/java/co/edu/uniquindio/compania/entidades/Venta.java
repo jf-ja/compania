@@ -3,12 +3,10 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @ToString
@@ -29,6 +27,21 @@ public class Venta implements Serializable {
 
     private Boolean estado;
 
+    @ManyToOne
+    private Cliente cliente;
+
+    @ManyToOne
+    private Vendedor vendedor;
+
+    @OneToOne
+    private Envio envio;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "venta")
+    private List<DetalleVenta> detalleVentas;
+
+
+    @Builder
     public Venta(LocalDate fecha, String descripcion, Boolean estado) {
         this.fecha = fecha;
         this.descripcion = descripcion;

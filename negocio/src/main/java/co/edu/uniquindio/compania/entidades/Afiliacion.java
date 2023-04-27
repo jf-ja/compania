@@ -3,12 +3,11 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @ToString
@@ -33,6 +32,11 @@ public class Afiliacion implements Serializable {
 
     private Double descuentoCompra;
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "afiliacion")
+    private List<Vendedor> vendedores;
+
+    @Builder
     public Afiliacion(Integer nivel, Boolean estado, LocalDate fecha, Double porcentaje, Double descuentoCompra) {
         this.nivel = nivel;
         this.estado = estado;

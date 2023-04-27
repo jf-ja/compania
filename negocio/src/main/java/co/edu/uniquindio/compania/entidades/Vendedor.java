@@ -3,11 +3,9 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @ToString
@@ -32,11 +30,40 @@ public class Vendedor implements Serializable {
 
     private Double salario;
 
-    public Vendedor(String nombre, String apellido, String correo, String telefono, Double salario) {
+    private String contrasena;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "vendedor")
+    private List<InventarioEntrada> inventarioEntradas;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "vendedor")
+    private List<InventarioSalida> inventarioSalidas;
+
+    @ManyToOne
+    private Afiliacion afiliacion;
+
+    @ManyToOne
+    private Direccion direccion;
+
+    @ToString.Exclude
+    @OneToMany (mappedBy = "vendedor")
+    private List<Venta> ventas;
+
+    @ManyToOne
+    private Vendedor vendedorJefe;
+
+    @Builder
+
+    public Vendedor(Integer codigo, String nombre, String apellido, String correo, String telefono, Double salario, String contrasena) {
+        this.codigo = codigo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.telefono = telefono;
         this.salario = salario;
+        this.contrasena = contrasena;
     }
+
+
 }

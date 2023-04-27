@@ -3,11 +3,9 @@ package co.edu.uniquindio.compania.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @ToString
@@ -24,6 +22,11 @@ public class Categoria implements Serializable {
 
     private String nombre;
 
+    @ToString.Exclude
+    @OneToMany (mappedBy = "categoria")
+    private List<Subcategoria> subcategorias;
+
+    @Builder
     public Categoria(String nombre) {
         this.nombre = nombre;
     }
