@@ -8,7 +8,7 @@ public interface VendedorServicio {
 
     //----------------------------------- LOGIN------------------------------------------
 
-    Vendedor login(String correo, String password) throws Exception;
+    Vendedor login(String correo, String contrasena) throws Exception;
 
 
     //----------------------------------- GESTIONAR VENDEDORES ------------------------------------

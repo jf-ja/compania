@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VendedorServicioImpl implements VendedorServicio{
@@ -45,62 +46,105 @@ public class VendedorServicioImpl implements VendedorServicio{
     //----------------------------------- LOGIN------------------------------------------
 
     @Override
-    public Vendedor login(String correo, String password) throws Exception {
-        return null;
+    public Vendedor login(String correo, String contrasena) throws Exception {
+        Vendedor vendedor = vendedorRepo.comprobarAutentificacion(correo, contrasena);
+        return vendedor;
     }
 
     //----------------------------------- GESTIONAR VENDEDORES ------------------------------------
 
     @Override
     public Vendedor crearVendedor(Vendedor vendedor) throws Exception {
-        return null;
+
+        boolean vendedorExiste = VendedorRepetido(vendedor.getCodigo());
+        if(vendedorExiste){
+            throw new Exception("La cedula para el vendedor ya Existe");
+        }
+        boolean vendedorExisteCorreo = VendedorRepetidoCorreo(vendedor.getCorreo()) ;
+        if(vendedorExisteCorreo){
+            throw new Exception("El correo para el vendedor ya Existe");
+        }
+        return vendedorRepo.save(vendedor);
     }
 
     @Override
     public Vendedor obtenerVendedor(Integer codigo) throws Exception {
-        return null;
+        Optional<Vendedor> vendedor = vendedorRepo.findById(codigo);
+        if(vendedor.isEmpty()){
+            throw new Exception("No existe un vendedor con ese codigo");
+        }
+        return vendedor.get();
+    }
+
+    private boolean VendedorRepetidoCorreo(String correo){
+        return vendedorRepo.findByCorreo(correo).orElse(null)!=null;
+    }
+
+    private boolean VendedorRepetido(Integer codigo){
+        return vendedorRepo.findByCodigo(codigo).orElse(null)!=null;
     }
 
     @Override
     public Vendedor actualizarVendedor(Vendedor vendedor) throws Exception {
-        return null;
+        Optional<Vendedor> vendedorGuardado = vendedorRepo.findById(vendedor.getCodigo());
+        if(vendedorGuardado.isEmpty()){
+            throw new Exception("El vendedor NO EXISTE");
+        }
+        return vendedorRepo.save(vendedor);
     }
 
     @Override
     public void eliminarVendedor(Integer codigo) throws Exception {
 
+        Optional<Vendedor> vendedorGuardado = vendedorRepo.findById(codigo);
+        if(vendedorGuardado.isEmpty()){
+            throw new Exception("El vendedor NO EXISTE");
+        }
+        vendedorRepo.delete(vendedorGuardado.get());
     }
 
     @Override
     public List<Vendedor> listarVendedor() {
-        return null;
+        return vendedorRepo.findAll();
     }
 
     //-----------------------------------GESTIONAR PRODUCTOS------------------------------------
 
     @Override
     public Producto crearProducto(Producto producto) throws Exception {
-        return null;
+        return productoRepo.save(producto);
     }
 
     @Override
     public Producto obtenerProducto(Integer codigo) throws Exception {
-        return null;
+        Optional<Producto> producto = productoRepo.findById(codigo);
+        if(producto.isEmpty()){
+            throw new Exception("No existe el producto con ese codigo");
+        }
+        return producto.get();
     }
 
     @Override
     public Producto actualizarProducto(Producto producto) throws Exception {
-        return null;
+        Optional<Producto> productoGuardado = productoRepo.findById(producto.getCodigo());
+        if (productoGuardado.isEmpty()){
+            throw new Exception("El producto NO EXISTE");
+        }
+        return productoRepo.save(producto);
     }
 
     @Override
     public void eliminarProducto(Integer codigo) throws Exception {
-
+        Optional<Producto> productoGuardado = productoRepo.findById(codigo);
+        if (productoGuardado.isEmpty()){
+            throw new Exception("El producto NO EXISTE");
+        }
+        productoRepo.delete(productoGuardado.get());
     }
 
     @Override
     public List<Producto> listarProducto() {
-        return null;
+        return productoRepo.findAll();
     }
 
     //-----------------------------GESTIONAR INVENTARIOS ENTRADA-----------------------------------
