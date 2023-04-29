@@ -24,10 +24,6 @@ public class Afiliacion implements Serializable {
 
     private Integer nivel;
 
-    private Boolean estado;
-
-    private LocalDate fecha;
-
     private Double porcentaje;
 
     private Double descuentoCompra;
@@ -37,10 +33,8 @@ public class Afiliacion implements Serializable {
     private List<Vendedor> vendedores;
 
     @Builder
-    public Afiliacion(Integer nivel, Boolean estado, LocalDate fecha, Double porcentaje, Double descuentoCompra) {
+    public Afiliacion(Integer nivel, Double porcentaje, Double descuentoCompra) {
         this.nivel = nivel;
-        this.estado = estado;
-        this.fecha = fecha;
         this.porcentaje = porcentaje;
         this.descuentoCompra = descuentoCompra;
     }

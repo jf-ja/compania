@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @ToString
@@ -18,8 +19,9 @@ public class Envio implements Serializable {
     @EqualsAndHashCode.Include
     private Integer codigo;
 
-    @OneToOne
-    private Venta venta;
+    @ToString.Exclude
+    @OneToMany(mappedBy = "envio")
+    private List<Venta> ventas;
 
     @ManyToOne
     private Direccion direccion;

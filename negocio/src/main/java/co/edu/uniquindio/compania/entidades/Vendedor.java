@@ -32,6 +32,9 @@ public class Vendedor implements Serializable {
 
     private String contrasena;
 
+
+    private Boolean estado_afiliacion;
+
     @ToString.Exclude
     @OneToMany(mappedBy = "vendedor")
     private List<InventarioEntrada> inventarioEntradas;
@@ -54,16 +57,13 @@ public class Vendedor implements Serializable {
     private Vendedor vendedorJefe;
 
     @Builder
-
-    public Vendedor(Integer codigo, String nombre, String apellido, String correo, String telefono, Double salario, String contrasena) {
-        this.codigo = codigo;
+    public Vendedor(String nombre, String apellido, String correo, String telefono, Double salario, String contrasena, Boolean estado_afiliacion) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.telefono = telefono;
         this.salario = salario;
         this.contrasena = contrasena;
+        this.estado_afiliacion = estado_afiliacion;
     }
-
-
 }

@@ -25,15 +25,13 @@ public class Venta implements Serializable {
 
     private String descripcion;
 
-    private Boolean estado;
-
     @ManyToOne
     private Cliente cliente;
 
     @ManyToOne
     private Vendedor vendedor;
 
-    @OneToOne
+    @ManyToOne
     private Envio envio;
 
     @ToString.Exclude
@@ -42,9 +40,8 @@ public class Venta implements Serializable {
 
 
     @Builder
-    public Venta(LocalDate fecha, String descripcion, Boolean estado) {
+    public Venta(LocalDate fecha, String descripcion) {
         this.fecha = fecha;
         this.descripcion = descripcion;
-        this.estado = estado;
     }
 }

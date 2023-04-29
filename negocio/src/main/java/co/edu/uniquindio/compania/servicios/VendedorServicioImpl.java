@@ -112,6 +112,10 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public Producto crearProducto(Producto producto) throws Exception {
+        Producto productoExiste = productoRepo.findById(producto.getCodigo()).orElse(null);
+        if(productoExiste != null){
+            throw new Exception("Ya existe el producto con ese codigo ");
+        }
         return productoRepo.save(producto);
     }
 
@@ -152,55 +156,88 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public InventarioEntrada crearInventarioEntrada(InventarioEntrada inventarioEntrada) throws Exception {
-        return null;
+        InventarioEntrada inventarioEntradaExiste = inventarioEntradaRepo.findById(inventarioEntrada.getCodigo()).orElse(null);
+        if(inventarioEntradaExiste != null){
+            throw new Exception("Ya existe el inventario de entrada con ese codigo ");
+        }
+        return inventarioEntradaRepo.save(inventarioEntrada);
     }
 
     @Override
     public InventarioEntrada obtenerInventarioEntrada(Integer codigo) throws Exception {
-        return null;
+        Optional<InventarioEntrada> inventarioEntrada = inventarioEntradaRepo.findById(codigo);
+        if (inventarioEntrada.isEmpty()){
+            throw new Exception("No existe el inventarioEntrada con ese codigo");
+        }
+        return inventarioEntrada.get();
     }
 
     @Override
     public InventarioEntrada actualizarInventarioEntrada(InventarioEntrada inventarioEntrada) throws Exception {
-        return null;
+        Optional<InventarioEntrada> inventarioEntradaGuardado = inventarioEntradaRepo.findById(inventarioEntrada.getCodigo());
+        if (inventarioEntradaGuardado.isEmpty()){
+            throw new Exception("El Inventario Entrada NO EXISTE");
+        }
+        return inventarioEntradaRepo.save(inventarioEntrada);
     }
 
     @Override
     public void eliminarInventarioEntrada(Integer codigo) throws Exception {
-
+        Optional<InventarioEntrada> inventarioEntradaGuardado = inventarioEntradaRepo.findById(codigo);
+        if (inventarioEntradaGuardado.isEmpty()){
+            throw new Exception("El inventario entrada NO EXISTE");
+        }
+        inventarioEntradaRepo.delete(inventarioEntradaGuardado.get());
     }
 
     @Override
     public List<InventarioEntrada> listarInventarioEntrada() {
-        return null;
+        return inventarioEntradaRepo.findAll();
     }
 
     //------------------------------------ GESTIONAR CLIENTES------------------------------------
 
 
+
     @Override
-    public Cliente crearCliente(Cliente ciudad) throws Exception {
-        return null;
+    public Cliente crearCliente(Cliente cliente) throws Exception {
+        Cliente clienteExiste = clienteRepo.findById(cliente.getCodigo()).orElse(null);
+        if(clienteExiste != null){
+            throw new Exception("Ya existe el cliente con ese codigo ");
+        }
+        return clienteRepo.save(cliente);
     }
 
     @Override
     public Cliente obtenerCliente(Integer codigo) throws Exception {
-        return null;
+        Optional<Cliente> cliente = clienteRepo.findById(codigo);
+        if(cliente.isEmpty()){
+            throw new Exception("No se encontro el cliente");
+        }
+        return cliente.get();
     }
 
     @Override
-    public Cliente actualizarCliente(Cliente ciudad) throws Exception {
-        return null;
+    public Cliente actualizarCliente(Cliente cliente) throws Exception {
+        Optional<Cliente> clienteGuardado = clienteRepo.findById(cliente.getCodigo());
+        if (clienteGuardado.isEmpty()){
+            throw new Exception("El cliente con este codigo no existe");
+        }
+        return clienteRepo.save(cliente);
     }
 
     @Override
     public void eliminarCliente(Integer codigo) throws Exception {
-
+        Optional<Cliente> clienteGuardado = clienteRepo.findById(codigo);
+        if (clienteGuardado.isEmpty()){
+            throw new Exception("El cliente con este codigo no existe");
+        }
+        clienteRepo.delete(clienteGuardado.get());
     }
 
     @Override
     public List<Cliente> listarCliente() {
-        return null;
+        return clienteRepo.findAll();
     }
 
     //-------------------------------------GESTIONAR TRANSORTADORES------------------------------
@@ -208,27 +245,43 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public Transportador crearTransportador(Transportador transportador) throws Exception {
-        return null;
+        Transportador transportadorExiste = transportadorRepo.findById(transportador.getCodigo()).orElse(null);
+        if(transportadorExiste != null){
+            throw new Exception("Ya existe el transportador con ese codigo ");
+        }
+        return transportadorRepo.save(transportador);
     }
 
     @Override
     public Transportador obtenerTransportador(Integer codigo) throws Exception {
-        return null;
+        Optional<Transportador> transportador = transportadorRepo.findById(codigo);
+        if (transportador.isEmpty()){
+            throw new Exception("No se encontro el transportador con este codigo");
+        }
+        return transportador.get();
     }
 
     @Override
     public Transportador actualizarTransportador(Transportador transportador) throws Exception {
-        return null;
+        Optional<Transportador> trasportadorGuardado = transportadorRepo.findById(transportador.getCodigo());
+        if (trasportadorGuardado.isEmpty()){
+            throw new Exception("No se encontro el transportador con este codigo");
+        }
+        return transportadorRepo.save(transportador);
     }
 
     @Override
     public void eliminarTransportador(Integer codigo) throws Exception {
-
+        Optional<Transportador> trasportadorGuardado = transportadorRepo.findById(codigo);
+        if (trasportadorGuardado.isEmpty()){
+            throw new Exception("No se encontro el transportador con este codigo");
+        }
+        transportadorRepo.delete(trasportadorGuardado.get());
     }
 
     @Override
     public List<Transportador> listarTransportador() {
-        return null;
+        return transportadorRepo.findAll();
     }
 
 
@@ -236,27 +289,43 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public Venta crearVenta(Venta venta) throws Exception {
-        return null;
+        Venta ventaExiste = ventaRepo.findById(venta.getCodigo()).orElse(null);
+        if(ventaExiste != null){
+            throw new Exception("Ya existe la venta con ese codigo ");
+        }
+        return ventaRepo.save(venta);
     }
 
     @Override
     public Venta obtenerVenta(Integer codigo) throws Exception {
-        return null;
+        Optional<Venta> venta = ventaRepo.findById(codigo);
+        if (venta.isEmpty()){
+            throw new Exception("No se encontro la venta con este codigo");
+        }
+        return venta.get();
     }
 
     @Override
     public Venta actualizarVenta(Venta venta) throws Exception {
-        return null;
+        Optional<Venta> ventaGuardada = ventaRepo.findById(venta.getCodigo());
+        if (ventaGuardada.isEmpty()){
+            throw new Exception("No se encontro la venta con este codigo");
+        }
+        return ventaRepo.save(venta);
     }
 
     @Override
     public void eliminarVenta(Integer codigo) throws Exception {
-
+        Optional<Venta> ventaGuardada = ventaRepo.findById(codigo);
+        if (ventaGuardada.isEmpty()){
+            throw new Exception("No se encontro la venta con este codigo");
+        }
+        ventaRepo.delete(ventaGuardada.get());
     }
 
     @Override
     public List<Venta> listarVenta() {
-        return null;
+        return ventaRepo.findAll();
     }
 
     //-----------------------------------GESTIONAR DETALLE VENTAS --------------------------------
@@ -264,27 +333,43 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public DetalleVenta crearDetalleVenta(DetalleVenta detalleVenta) throws Exception {
-        return null;
+        DetalleVenta detalleVentaExiste = detalleVentaRepo.findById(detalleVenta.getCodigo()).orElse(null);
+        if(detalleVentaExiste != null){
+            throw new Exception("Ya existe el detalle de venta con ese codigo ");
+        }
+        return detalleVentaRepo.save(detalleVenta);
     }
 
     @Override
     public DetalleVenta obtenerDetalleVenta(Integer codigo) throws Exception {
-        return null;
+        Optional<DetalleVenta> detalleVenta = detalleVentaRepo.findById(codigo);
+        if (detalleVenta.isEmpty()){
+            throw new Exception("No se encontro la el detalle venta con este codigo");
+        }
+        return detalleVenta.get();
     }
 
     @Override
     public DetalleVenta actualizarDetalleVenta(DetalleVenta detalleVenta) throws Exception {
-        return null;
+        Optional<DetalleVenta> detalleVentaGuardada = detalleVentaRepo.findById(detalleVenta.getCodigo());
+        if (detalleVentaGuardada.isEmpty()){
+            throw new Exception("No se encontro la el detalle venta con este codigo");
+        }
+        return detalleVentaRepo.save(detalleVenta);
     }
 
     @Override
     public void eliminarDetalleVenta(Integer codigo) throws Exception {
-
+        Optional<DetalleVenta> detalleVenta = detalleVentaRepo.findById(codigo);
+        if (detalleVenta.isEmpty()){
+            throw new Exception("No se encontro la el detalle venta con este codigo");
+        }
+        detalleVentaRepo.delete(detalleVenta.get());
     }
 
     @Override
     public List<DetalleVenta> listarDetalleVenta() {
-        return null;
+        return detalleVentaRepo.findAll();
     }
 
     //----------------------------------- GESTIONAR ENVIOS -------------------------------------
@@ -292,27 +377,43 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public Envio crearEnvio(Envio envio) throws Exception {
-        return null;
+        Envio envioExiste = envioRepo.findById(envio.getCodigo()).orElse(null);
+        if(envioExiste != null){
+            throw new Exception("Ya existe el envio con ese codigo ");
+        }
+        return envioRepo.save(envio);
     }
 
     @Override
     public Envio obtenerEnvio(Integer codigo) throws Exception {
-        return null;
+        Optional<Envio> envioGuardado = envioRepo.findById(codigo);
+        if(envioGuardado.isEmpty()){
+            throw new Exception("No se encontro el envio con este codigo");
+        }
+        return envioGuardado.get();
     }
 
     @Override
     public Envio actualizarEnvio(Envio envio) throws Exception {
-        return null;
+        Optional<Envio> envioGuardado = envioRepo.findById(envio.getCodigo());
+        if(envioGuardado.isEmpty()){
+            throw new Exception("No se encontro el envio con este codigo");
+        }
+        return envioRepo.save(envio);
     }
 
     @Override
     public void eliminarEnvio(Integer codigo) throws Exception {
-
+        Optional<Envio> envioGuardado = envioRepo.findById(codigo);
+        if(envioGuardado.isEmpty()){
+            throw new Exception("No se encontro el envio con este codigo");
+        }
+        envioRepo.delete(envioGuardado.get());
     }
 
     @Override
     public List<Envio> listarEnvio() {
-        return null;
+        return envioRepo.findAll();
     }
 
     //-------------------------------------GESTIONAR AFILIACIONES------------------------------
@@ -320,26 +421,42 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public Afiliacion crearAfiliacion(Afiliacion afiliacion) throws Exception {
-        return null;
+        Afiliacion afiliacionExiste = afiliacionRepo.findById(afiliacion.getCodigo()).orElse(null);
+        if(afiliacionExiste != null){
+            throw new Exception("Ya existe la afiliacion con ese codigo ");
+        }
+        return afiliacionRepo.save(afiliacion);
     }
 
     @Override
     public Afiliacion obtenerAfiliacion(Integer codigo) throws Exception {
-        return null;
+        Optional<Afiliacion> afiliacionGuardada = afiliacionRepo.findById(codigo);
+        if(afiliacionGuardada.isEmpty()){
+            throw new Exception("No se encontro la afiliacion con este codigo");
+        }
+        return afiliacionGuardada.get();
     }
 
     @Override
     public Afiliacion actualizarAfiliacion(Afiliacion afiliacion) throws Exception {
-        return null;
+        Optional<Afiliacion> afiliacionGuardada = afiliacionRepo.findById(afiliacion.getCodigo());
+        if(afiliacionGuardada.isEmpty()){
+            throw new Exception("No se encontro la afiliacion con este codigo");
+        }
+        return afiliacionRepo.save(afiliacion);
     }
 
     @Override
     public void eliminarAfiliacion(Integer codigo) throws Exception {
-
+        Optional<Afiliacion> afiliacionGuardada = afiliacionRepo.findById(codigo);
+        if(afiliacionGuardada.isEmpty()){
+            throw new Exception("No se encontro la afiliacion con este codigo");
+        }
+        afiliacionRepo.delete(afiliacionGuardada.get());
     }
 
     @Override
     public List<Afiliacion> listarAfiliacion() {
-        return null;
+        return afiliacionRepo.findAll();
     }
 }

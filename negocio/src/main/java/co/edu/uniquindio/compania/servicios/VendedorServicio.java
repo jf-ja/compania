@@ -52,11 +52,11 @@ public interface VendedorServicio {
 
     //------------------------------------ GESTIONAR CLIENTES------------------------------------
 
-    Cliente crearCliente(Cliente ciudad) throws Exception;
+    Cliente crearCliente(Cliente cliente) throws Exception;
 
     Cliente obtenerCliente(Integer codigo)throws Exception;
 
-    Cliente actualizarCliente(Cliente ciudad) throws Exception;
+    Cliente actualizarCliente(Cliente cliente) throws Exception;
 
     void eliminarCliente(Integer codigo) throws Exception;
 
