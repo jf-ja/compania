@@ -1,3 +1,4 @@
+
 /*----------------------------------------PAIS------------------------------------------
   PAIS: id, nombre.
  */
@@ -13,7 +14,7 @@ INSERT INTO pais VALUES (3, "Peru");
 
 INSERT INTO departamento VALUES (1, "Quindio", 1);
 INSERT INTO departamento VALUES (2, "Risaralda", 1);
-INSERT INTO departamento VALUES (3, "Aguascalientes" 2);
+INSERT INTO departamento VALUES (3, "Aguascalientes", 2);
 
 
 
@@ -161,12 +162,12 @@ INSERT INTO envio VALUES (2, 11, 2);
  */
 
 INSERT INTO venta VALUES (1, "Venta completada", "2023-03-01", 1, 1, 1);
-INSERT INTO venta VALUES (2, "Venta Pendiente", "2023-04-02", 2, 2, 1);*/
+INSERT INTO venta VALUES (2, "Venta Pendiente", "2023-04-02", 2, 2, 1);
 
 
 /*----------------------------------------------DETALLE_VENTA----------------------------------------
   DETALLE_VENTA: id, cantidad, precio, producto_id, venta_id.
- */
+*/
 
 INSERT INTO detalle_venta VALUES (1, 3, 30000, 4, 2);
 INSERT INTO detalle_venta VALUES (2, 4, 92000, 8, 2);

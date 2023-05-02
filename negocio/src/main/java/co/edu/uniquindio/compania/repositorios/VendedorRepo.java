@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -21,4 +22,11 @@ public interface VendedorRepo extends JpaRepository<Vendedor,Integer> {
 
     //Esta consulta validad si existe un vendedor ingresando el correo
     Optional<Vendedor> findByCorreo(String correo);
+
+
+    //Esta consulta obtiene los vendedores de un jefe vendedor por su id
+
+    @Query("SELECT vd FROM Vendedor vd WHERE vd.vendedorJefe.codigo= :codigo")
+    List<Vendedor> obtenerVendedoresJefeVendedor(Integer codigo);
+
 }
