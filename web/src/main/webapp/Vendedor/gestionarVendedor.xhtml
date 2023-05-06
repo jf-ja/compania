@@ -14,65 +14,130 @@
 
 
 
-        <h:form id="crud_ciudad">
+        <h:form id="crud_vendedor">
 
             <p:toolbar>
                 <p:toolbarGroup>
-                    <p:commandButton value="Registrar" icon="pi pi-plus" styleClass="ui-button-success me-3" action="#{ciudadBean.crearCiudadDialog()}" update="dialogo_crear" oncomplete="PF('registrar_ciudad').show()" />
-                    <p:commandButton id="boton_borrar" value="#{ciudadBean.mensajeBorrar}" icon="pi pi-trash" disabled="#{ciudadBean.ciudadesSeleccionados.size()==0}" styleClass="ui-button-danger" action="#{ciudadBean.eliminarCiudades()}" update="crud_ciudad:lista_ciudades,@this" />
+                    <p:commandButton value="Registrar" icon="pi pi-plus" styleClass="ui-button-success me-3" action="#{vendedorBean.crearVendedorDialog()}" update="dialogo_crear" oncomplete="PF('registrar_vendedor').show()" />
+                    <p:commandButton id="boton_borrar" value="#{vendedorBean.mensajeBorrar}" icon="pi pi-trash" disabled="#{vendedorBean.vendedoresSeleccionados.size()==0}" styleClass="ui-button-danger" action="#{vendedorBean.eliminarVendedor()}" update="crud_vendedor:lista_vendedores,@this" />
                 </p:toolbarGroup>
             </p:toolbar>
 
 
 
-            <p:dataTable id="lista_ciudades" value="#{ciudadBean.ciudades}" var="ciudad" paginator="true" rows="10"
-                         rowKey="#{ciudad.codigoPostal}"
+            <p:dataTable id="lista_vendedores" value="#{vendedorBean.vendedoresVendedor}" var="vendedor" paginator="true" rows="10"
+                         rowKey="#{vendedor.codigo}"
                          paginatorPosition="bottom" rowSelectMode="add"
-                         selection="#{ciudadBean.ciudadesSeleccionados}">
+                         selection="#{vendedorBean.vendedoresSeleccionados}">
 
-                <p:ajax event="rowSelect" update="crud_ciudad:boton_borrar" />
-                <p:ajax event="rowUnselect" update="crud_ciudad:boton_borrar" />
-                <p:ajax event="rowSelectCheckbox" update="crud_ciudad:boton_borrar" />
-                <p:ajax event="rowUnselectCheckbox" update="crud_ciudad:boton_borrar" />
-                <p:ajax event="toggleSelect" update="crud_ciudad:boton_borrar" />
+                <p:ajax event="rowSelect" update="crud_vendedor:boton_borrar" />
+                <p:ajax event="rowUnselect" update="crud_vendedor:boton_borrar" />
+                <p:ajax event="rowSelectCheckbox" update="crud_vendedor:boton_borrar" />
+                <p:ajax event="rowUnselectCheckbox" update="crud_vendedor:boton_borrar" />
+                <p:ajax event="toggleSelect" update="crud_vendedor:boton_borrar" />
 
                 <p:column selectionMode="multiple" exportable="false" />
 
-                <p:column headerText="Codigo Postal" >
-                    <h:outputText value="#{ciudad.codigoPostal}"/>
+                <p:column headerText="Codigo" >
+                    <h:outputText value="#{vendedor.codigo}"/>
                 </p:column>
 
-                <p:column headerText="Nombre Ciudad" >
-                    <h:outputText value="#{ciudad.nombreCiudad}"/>
+                <p:column headerText="Nombre" >
+                    <h:outputText value="#{vendedor.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Apellido" >
+                    <h:outputText value="#{vendedor.apellido}"/>
+                </p:column>
+
+                <p:column headerText="Correo" >
+                    <h:outputText value="#{vendedor.correo}"/>
+                </p:column>
+
+                <p:column headerText="Telefono" >
+                    <h:outputText value="#{vendedor.telefono}"/>
+                </p:column>
+
+                <p:column headerText="Correo" >
+                    <h:outputText value="#{vendedor.correo}"/>
+                </p:column>
+
+                <p:column headerText="Ciudad" >
+                    <h:outputText value="#{vendedor.direccion.ciudad.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Direccion" >
+                    <h:outputText value="#{vendedor.direccion.direccion}"/>
+                </p:column>
+
+                <p:column headerText="Salario" >
+                    <h:outputText value="#{vendedor.salario}"/>
+                </p:column>
+
+                <p:column headerText="Nombre Jefe" >
+                    <h:outputText value="#{vendedor.vendedorJefe.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Afiliacion" >
+                    <h:outputText value="#{vendedor.estado_afiliacion}"/>
                 </p:column>
 
                 <p:column headerText="" >
-                    <p:commandButton styleClass="edit-button rounded-button ui-button-success" icon="pi pi-pencil" action="#{ciudadBean.seleccionarCiudad(ciudad)}" oncomplete="PF('registrar_ciudad').show()" update="dialogo_crear"/>
+                    <p:commandButton styleClass="edit-button rounded-button ui-button-success" icon="pi pi-pencil" action="#{vendedorBean.seleccionarVendedores(vendedor)}" oncomplete="PF('registrar_vendedor').show()" update="dialogo_crear"/>
                 </p:column>
 
             </p:dataTable>
         </h:form>
 
 
-        <p:dialog id="dialogo_crear" widgetVar="registrar_ciudad" modal="true" header="#{ciudadBean.mensajeCrearEditar}" showEffect="fade">
+        <p:dialog id="dialogo_crear" widgetVar="registrar_vendedor" modal="true" header="#{vendedorBean.mensajeCrearEditar}" showEffect="fade">
 
-            <h1>GESTIONAR CIUDAD</h1>
+            <h1>GESTIONAR VENDEDOR</h1>
 
             <h:form>
                 <h:panelGrid columns="3" cellpadding="5" >
 
 
-                    <p:outputLabel for="codigo_ciudad" value = "Codigo Postal: "/>
-                    <p:inputText id="codigo_ciudad" value = "#{ciudadBean.ciudad.codigoPostal}" required="true"/>
-                    <p:messages for="codigo_ciudad"/>
+                    <p:outputLabel for="codigo_vendedor" value = "Codigo: "/>
+                    <p:inputText id="codigo_vendedor" value = "#{vendedorBean.vendedor.codigo}" required="true"/>
+                    <p:messages for="codigo_vendedor"/>
 
-                    <p:outputLabel for="nombre_ciudad" value = "Nombre ciudad: "/>
-                    <p:inputText id="nombre_ciudad" value = "#{ciudadBean.ciudad.nombreCiudad}" required="true"/>
-                    <p:messages for="nombre_ciudad"/>
+                    <p:outputLabel for="nombre_vendedor" value = "Nombre: "/>
+                    <p:inputText id="nombre_vendedor" value = "#{vendedorBean.vendedor.nombre}" required="true"/>
+                    <p:messages for="nombre_vendedor"/>
+
+                    <p:outputLabel for="apellido_vendedor" value = "Apellido: "/>
+                    <p:inputText id="apellido_vendedor" value = "#{vendedorBean.vendedor.apellido}" required="true"/>
+                    <p:messages for="apellido_vendedor"/>
+
+                    <p:outputLabel for="correo_vendedor" value = "Correo: "/>
+                    <p:inputText id="correo_vendedor" value = "#{vendedorBean.vendedor.correo}" required="true"/>
+                    <p:messages for="correo_vendedor"/>
+
+                    <p:outputLabel for="salario_vendedor" value = "Salario: "/>
+                    <p:inputText id="salario_vendedor" value = "#{vendedorBean.vendedor.salario}" required="true"/>
+                    <p:messages for="salario_vendedor"/>
+
+                    <p:outputLabel for="telefono_vendedor" value = "telefono: "/>
+                    <p:inputText id="telefono_vendedor" value = "#{vendedorBean.vendedor.telefono}" required="true"/>
+                    <p:messages for="telefono_vendedor"/>
+
+                    <p:outputLabel for="ciudad_vendedor" value = "Ciudad: "/>
+                    <p:inputText id="ciudad_vendedor" value = "#{vendedorBean.vendedor.direccion.ciudad}" required="true"/>
+                    <p:messages for="ciudad_vendedor"/>
+
+                    <p:outputLabel for="direccion_vendedor" value = "Direccion: "/>
+                    <p:inputText id="direccion_vendedor" value = "#{vendedorBean.vendedor.direccion.direccion}" required="true"/>
+                    <p:messages for="direccion_vendedor"/>
+
+                    <p:outputLabel for="tipo_direccion" value = "Tipo Direccion: "/>
+                    <p:inputText id="tipo_direccion" value = "#{vendedorBean.vendedor.direccion.tipo}" required="true"/>
+                    <p:messages for="tipo_direccion"/>
+
 
                 </h:panelGrid>
-                <p:commandButton value="#{ciudadBean.mensajeCrearEditar}" action= "#{ciudadBean.registrarCiudad()}" icon="pi pi-plus-circle" update="@form,crud_ciudad:lista_ciudades"/>
-                <p:growl for="mensaje_registro_ciudad" showDetail="true"/>
+                <p:commandButton value="#{vendedorBean.mensajeCrearEditar}" action= "#{vendedorBean.registrarVendedor()}" icon="pi pi-plus-circle" update="@form,crud_vendedor:lista_vendedores"/>
+                <p:growl for="mensaje_registro_vendedor" showDetail="true"/>
 
             </h:form>
         </p:dialog>
