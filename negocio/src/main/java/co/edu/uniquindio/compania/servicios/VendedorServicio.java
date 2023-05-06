@@ -23,6 +23,8 @@ public interface VendedorServicio {
 
     List<Vendedor> listarVendedor();
 
+    List<Vendedor> listarVendedoresVendedor(Integer codigo);
+
 
     //-----------------------------------GESTIONAR PRODUCTOS------------------------------------
 
@@ -48,6 +50,8 @@ public interface VendedorServicio {
     void eliminarInventarioEntrada(Integer codigo) throws Exception;
 
     List<InventarioEntrada> listarInventarioEntrada();
+
+    List<InventarioEntrada> obtenerInventarioEntradaVendedor(Integer codigo);
 
 
     //------------------------------------ GESTIONAR CLIENTES------------------------------------
@@ -87,6 +91,8 @@ public interface VendedorServicio {
     void eliminarVenta(Integer codigo) throws Exception;
 
     List<Venta> listarVenta();
+
+    List<Venta> obtenerVentasVendedor(Integer codigo);
 
     //-----------------------------------GESTIONAR DETALLE VENTAS --------------------------------
 

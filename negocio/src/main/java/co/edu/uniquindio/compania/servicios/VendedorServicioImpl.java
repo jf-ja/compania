@@ -108,6 +108,13 @@ public class VendedorServicioImpl implements VendedorServicio{
         return vendedorRepo.findAll();
     }
 
+
+    @Override
+    public List<Vendedor> listarVendedoresVendedor(Integer codigo) {
+        List<Vendedor> vendedores = vendedorRepo.obtenerVendedoresJefeVendedor(codigo);
+        return vendedores;
+    }
+
     //-----------------------------------GESTIONAR PRODUCTOS------------------------------------
 
     @Override
@@ -193,6 +200,12 @@ public class VendedorServicioImpl implements VendedorServicio{
     @Override
     public List<InventarioEntrada> listarInventarioEntrada() {
         return inventarioEntradaRepo.findAll();
+    }
+
+    @Override
+    public List<InventarioEntrada> obtenerInventarioEntradaVendedor(Integer codigo) {
+        List<InventarioEntrada> inventarioEntradas = inventarioEntradaRepo.mostrarInventarioEntradaVendedor(codigo);
+        return inventarioEntradas;
     }
 
     //------------------------------------ GESTIONAR CLIENTES------------------------------------
@@ -326,6 +339,12 @@ public class VendedorServicioImpl implements VendedorServicio{
     @Override
     public List<Venta> listarVenta() {
         return ventaRepo.findAll();
+    }
+
+    @Override
+    public List<Venta> obtenerVentasVendedor(Integer codigo) {
+        List<Venta> ventas = ventaRepo.ventasRealizadasPorVendedor(codigo);
+        return ventas;
     }
 
     //-----------------------------------GESTIONAR DETALLE VENTAS --------------------------------

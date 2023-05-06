@@ -13,19 +13,21 @@
 </h:head>
 <h:body>
 
-    <h:form>
-        <p:panel style="text-align: center" header="INICIO DE SESION">
-            <p:messages />
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputLabel for="username" value="Nombre de usuario:" />
-                <p:inputText id="username" value="#{loginBean.username}" required="true" />
-
-                <h:outputLabel for="password" value="Contraseña:" />
-                <p:password id="password" value="#{loginBean.password}" required="true" />
-
-                <p:commandButton value="Iniciar sesión" action="#{loginBean.login}" ajax="false" />
+    <p:panel header="LOGIN VENDEDOR">
+        <h:form rendered="#{!seguridadBean.autenticado}">
+            <h:panelGrid columns="3" cellpadding="5">
+                <p:outputLabel for="email_login" value="Email:" />
+                <p:inputText id="email_login" value="#{seguridadBean.email}" required="true" />
+                <p:message for="email_login" />
+                <p:outputLabel for="password_login" value="Password:" />
+                <p:password id="password_login" value="#{seguridadBean.password}" required="true"
+                />
+                <p:message for="password_login" />
             </h:panelGrid>
-        </p:panel>
-    </h:form>
+            <p:commandButton value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion()}"
+                             styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left" />
+            <p:growl for="login-bean" showDetail="true" />
+        </h:form>
+    </p:panel>
 </h:body>
 </html>
