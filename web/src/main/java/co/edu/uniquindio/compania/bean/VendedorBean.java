@@ -1,5 +1,8 @@
 package co.edu.uniquindio.compania.bean;
 
+import co.edu.uniquindio.compania.entidades.Ciudad;
+import co.edu.uniquindio.compania.entidades.Direccion;
+import co.edu.uniquindio.compania.entidades.Pais;
 import co.edu.uniquindio.compania.entidades.Vendedor;
 import co.edu.uniquindio.compania.servicios.VendedorServicio;
 import lombok.Getter;
@@ -30,7 +33,7 @@ public class VendedorBean {
 
     @Getter
     @Setter
-    private ArrayList<Vendedor> vendedoresSeleccionados;
+    private List<Vendedor> vendedoresSeleccionados;
 
     private boolean editar;
 
@@ -40,10 +43,25 @@ public class VendedorBean {
     @Value("#{seguridadBean.vendedor}")
     private Vendedor vendedorSesion;
 
+    @Getter @Setter
+    private List<Ciudad> ciudades;
+
+    @Getter @Setter
+    private List<Pais> paises;
+
+    @Getter
+    @Setter
+    private Direccion direccion;
+
     @PostConstruct
     public void init(){
         vendedor = new Vendedor();
+        System.out.println(vendedor.getCodigo());
+        direccion = new Direccion();
+        System.out.println(direccion.getCodigo());
         vendedoresSeleccionados = new ArrayList<>();
+        //paises = vendedorServicio.listarPaises();
+        ciudades = vendedorServicio.listarCiudades();
         vendedoresVendedor= vendedorServicio.listarVendedoresVendedor(vendedorSesion.getCodigo());
         editar=false;
     }
@@ -58,12 +76,21 @@ public class VendedorBean {
 
             if(!editar) {
 
+
+                Direccion direccionRegistro = vendedorServicio.crearDireccion(direccion);
+
+                vendedor.setVendedorJefe(vendedorSesion);
+                vendedor.setEstado_afiliacion(false);
+                vendedor.setAfiliacion(null);
+                vendedor.setDireccion(direccionRegistro);
+
                 Vendedor registro = vendedorServicio.crearVendedor(vendedor);
-                registro.setVendedorJefe(vendedorSesion);
-                registro.setAfiliacion(null);
+
                 vendedoresVendedor.add(registro);
 
                 vendedor = new Vendedor();
+                direccion = new Direccion();
+
                 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Registro Exitoso");
                 FacesContext.getCurrentInstance().addMessage("mensaje_registro_vendedor", facesMessage);
             }else {

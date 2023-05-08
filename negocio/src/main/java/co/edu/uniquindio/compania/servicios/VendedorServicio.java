@@ -131,6 +131,25 @@ public interface VendedorServicio {
     List<Afiliacion> listarAfiliacion();
 
 
+    //------------------------------------GESTIONAR CIUDADES--------------------------
+
+    Ciudad obtenerCiudad(Integer codigo) throws Exception;
+
+    List<Ciudad> listarCiudades();
+
+    List<Ciudad> listarCiudadesPorPais(Integer codigo) throws Exception;
+
+
+    //-------------------------------------GESTIONAR PAISES------------------------------------
+
+    Pais obtenerPais(Integer codigo) throws Exception;
+
+    List<Pais> listarPaises();
+
+
+    //-------------------------------------GESTIONAR DIRECCION-----------------------------------
+
+    Direccion crearDireccion(Direccion direccion) throws Exception;
 
 
 }

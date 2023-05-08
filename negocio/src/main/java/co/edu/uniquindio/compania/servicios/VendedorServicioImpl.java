@@ -13,25 +13,31 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Autowired
     private final VendedorRepo vendedorRepo;
-
+    @Autowired
     private final ProductoRepo productoRepo;
-
+    @Autowired
     private final InventarioEntradaRepo inventarioEntradaRepo;
-
+    @Autowired
     private final ClienteRepo clienteRepo;
-
+    @Autowired
     private final TransportadorRepo transportadorRepo;
-
+    @Autowired
     private final VentaRepo ventaRepo;
-
+    @Autowired
     private final DetalleVentaRepo detalleVentaRepo;
-
+    @Autowired
     private final EnvioRepo envioRepo;
-
+    @Autowired
     private final AfiliacionRepo afiliacionRepo;
+    @Autowired
+    private final CiudadRepo ciudadRepo;
+    @Autowired
+    private final PaisRepo paisRepo;
+    @Autowired
+    private final DireccionRepo direccionRepo;
 
 
-    public VendedorServicioImpl(VendedorRepo vendedorRepo, ProductoRepo productoRepo, InventarioEntradaRepo inventarioEntradaRepo, ClienteRepo clienteRepo, TransportadorRepo transportadorRepo, VentaRepo ventaRepo, DetalleVentaRepo detalleVentaRepo, EnvioRepo envioRepo, AfiliacionRepo afiliacionRepo) {
+    public VendedorServicioImpl(VendedorRepo vendedorRepo, ProductoRepo productoRepo, InventarioEntradaRepo inventarioEntradaRepo, ClienteRepo clienteRepo, TransportadorRepo transportadorRepo, VentaRepo ventaRepo, DetalleVentaRepo detalleVentaRepo, EnvioRepo envioRepo, AfiliacionRepo afiliacionRepo, CiudadRepo ciudadRepo, PaisRepo paisRepo, DireccionRepo direccionRepo) {
         this.vendedorRepo = vendedorRepo;
         this.productoRepo = productoRepo;
         this.inventarioEntradaRepo = inventarioEntradaRepo;
@@ -41,6 +47,9 @@ public class VendedorServicioImpl implements VendedorServicio{
         this.detalleVentaRepo = detalleVentaRepo;
         this.envioRepo = envioRepo;
         this.afiliacionRepo = afiliacionRepo;
+        this.ciudadRepo = ciudadRepo;
+        this.paisRepo = paisRepo;
+        this.direccionRepo = direccionRepo;
     }
 
     //----------------------------------- LOGIN------------------------------------------
@@ -55,7 +64,7 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public Vendedor crearVendedor(Vendedor vendedor) throws Exception {
-
+        System.out.println("LLegada al metodo: " + vendedor.getCodigo());
         boolean vendedorExiste = VendedorRepetido(vendedor.getCodigo());
         if(vendedorExiste){
             throw new Exception("La cedula para el vendedor ya Existe");
@@ -477,5 +486,61 @@ public class VendedorServicioImpl implements VendedorServicio{
     @Override
     public List<Afiliacion> listarAfiliacion() {
         return afiliacionRepo.findAll();
+    }
+
+
+    //-----------------------------------CIUDAD--------------------------------------
+
+
+    @Override
+    public Ciudad obtenerCiudad(Integer codigo) throws Exception {
+        Optional<Ciudad> ciudad = ciudadRepo.findById(codigo);
+        if(ciudad.isEmpty()){
+            throw new Exception("No existe la ciudad con ese codigo postal");
+        }
+        return ciudad.get();
+    }
+
+    @Override
+    public List<Ciudad> listarCiudades() {
+        return ciudadRepo.findAll();
+    }
+
+    @Override
+    public List<Ciudad> listarCiudadesPorPais(Integer codigo) throws Exception{
+        List<Ciudad> ciudades = ciudadRepo.obtenerCiudadesPorPais(codigo);
+        if (ciudades.isEmpty()){
+            throw new Exception("Existe este pais con ese codigo");
+        }
+        return ciudades;
+    }
+
+    //-------------------------------------------GESTIONAR PAIS------------------------
+    @Override
+    public Pais obtenerPais(Integer codigo) throws Exception {
+        Optional<Pais> pais = paisRepo.findById(codigo);
+        if(pais.isEmpty()){
+            throw new Exception("No existe el pais con ese codigo ");
+        }
+        return pais.get();
+    }
+
+    @Override
+    public List<Pais> listarPaises() {
+        return paisRepo.findAll();
+    }
+
+    //-----------------------------------------GESTIONAR DIRECCIONES---------------------------
+    @Override
+    public Direccion crearDireccion(Direccion direccion) throws Exception {
+        boolean direccionExiste = DireccionRepetido(direccion.getCodigo());
+        if(direccionExiste){
+            throw new Exception("El codigo de direccion ya Existe");
+        }
+        return direccionRepo.save(direccion);
+    }
+
+    private boolean DireccionRepetido(Integer codigo){
+        return direccionRepo.findByCodigo(codigo).orElse(null)!=null;
     }
 }

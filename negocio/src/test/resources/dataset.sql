@@ -15,6 +15,8 @@ INSERT INTO pais VALUES (3, "Peru");
 INSERT INTO departamento VALUES (1, "Quindio", 1);
 INSERT INTO departamento VALUES (2, "Risaralda", 1);
 INSERT INTO departamento VALUES (3, "Aguascalientes", 2);
+INSERT INTO departamento VALUES (4, "Pasco", 3);
+
 
 
 
@@ -26,6 +28,9 @@ INSERT INTO departamento VALUES (3, "Aguascalientes", 2);
 INSERT INTO ciudad VALUES (1, "Armenia", 1);
 INSERT INTO ciudad VALUES (2, "Pereira", 2);
 INSERT INTO ciudad VALUES (3, "Dosquebradas", 2);
+INSERT INTO ciudad VALUES (4, "Ciudad de Mexico", 3);
+INSERT INTO ciudad VALUES (5, "Almas", 3);
+INSERT INTO ciudad VALUES (6, "Machupichu", 4);
 
 
 /*---------------------------------------------DIRECCION----------------------------------
