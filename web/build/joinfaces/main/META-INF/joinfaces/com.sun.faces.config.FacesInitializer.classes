@@ -1,5 +1,6 @@
 co.edu.uniquindio.compania.converter.CiudadConverter
 co.edu.uniquindio.compania.converter.PaisConverter
+co.edu.uniquindio.compania.converter.SubcategoriaConverter
 com.sun.faces.cdi.CdiConverter
 com.sun.faces.cdi.CdiValidator
 com.sun.faces.component.ComponentResourceContainer

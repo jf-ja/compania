@@ -56,11 +56,8 @@ public class VendedorBean {
     @PostConstruct
     public void init(){
         vendedor = new Vendedor();
-        System.out.println(vendedor.getCodigo());
         direccion = new Direccion();
-        System.out.println(direccion.getCodigo());
         vendedoresSeleccionados = new ArrayList<>();
-        //paises = vendedorServicio.listarPaises();
         ciudades = vendedorServicio.listarCiudades();
         vendedoresVendedor= vendedorServicio.listarVendedoresVendedor(vendedorSesion.getCodigo());
         editar=false;

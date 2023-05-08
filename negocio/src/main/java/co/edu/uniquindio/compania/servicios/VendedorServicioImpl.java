@@ -36,8 +36,11 @@ public class VendedorServicioImpl implements VendedorServicio{
     @Autowired
     private final DireccionRepo direccionRepo;
 
+    @Autowired
+    private final SubcategoriaRepo subcategoriaRepo;
 
-    public VendedorServicioImpl(VendedorRepo vendedorRepo, ProductoRepo productoRepo, InventarioEntradaRepo inventarioEntradaRepo, ClienteRepo clienteRepo, TransportadorRepo transportadorRepo, VentaRepo ventaRepo, DetalleVentaRepo detalleVentaRepo, EnvioRepo envioRepo, AfiliacionRepo afiliacionRepo, CiudadRepo ciudadRepo, PaisRepo paisRepo, DireccionRepo direccionRepo) {
+
+    public VendedorServicioImpl(VendedorRepo vendedorRepo, ProductoRepo productoRepo, InventarioEntradaRepo inventarioEntradaRepo, ClienteRepo clienteRepo, TransportadorRepo transportadorRepo, VentaRepo ventaRepo, DetalleVentaRepo detalleVentaRepo, EnvioRepo envioRepo, AfiliacionRepo afiliacionRepo, CiudadRepo ciudadRepo, PaisRepo paisRepo, DireccionRepo direccionRepo, SubcategoriaRepo subcategoriaRepo) {
         this.vendedorRepo = vendedorRepo;
         this.productoRepo = productoRepo;
         this.inventarioEntradaRepo = inventarioEntradaRepo;
@@ -50,6 +53,7 @@ public class VendedorServicioImpl implements VendedorServicio{
         this.ciudadRepo = ciudadRepo;
         this.paisRepo = paisRepo;
         this.direccionRepo = direccionRepo;
+        this.subcategoriaRepo = subcategoriaRepo;
     }
 
     //----------------------------------- LOGIN------------------------------------------
@@ -62,9 +66,9 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     //----------------------------------- GESTIONAR VENDEDORES ------------------------------------
 
+    //Cuano un objto se va crear con un codigo de incremento el metodo de crear es asi
     @Override
     public Vendedor crearVendedor(Vendedor vendedor) throws Exception {
-        System.out.println("LLegada al metodo: " + vendedor.getCodigo());
         boolean vendedorExiste = VendedorRepetido(vendedor.getCodigo());
         if(vendedorExiste){
             throw new Exception("La cedula para el vendedor ya Existe");
@@ -128,11 +132,15 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public Producto crearProducto(Producto producto) throws Exception {
-        Producto productoExiste = productoRepo.findById(producto.getCodigo()).orElse(null);
-        if(productoExiste != null){
-            throw new Exception("Ya existe el producto con ese codigo ");
+        boolean productoExiste = productoRepetido(producto.getCodigo());
+        if(productoExiste){
+            throw new Exception("La cedula para el vendedor ya Existe");
         }
         return productoRepo.save(producto);
+    }
+
+    private boolean productoRepetido(Integer codigo){
+        return productoRepo.findByCodigo(codigo).orElse(null)!=null;
     }
 
     @Override
@@ -543,4 +551,21 @@ public class VendedorServicioImpl implements VendedorServicio{
     private boolean DireccionRepetido(Integer codigo){
         return direccionRepo.findByCodigo(codigo).orElse(null)!=null;
     }
+
+    //----------------------------------------GESTIONAR SUBCATEGORIAS--------------------
+
+    @Override
+    public Subcategoria obtenerSubcategoria(Integer codigo) throws Exception {
+        Optional<Subcategoria> subcategoria = subcategoriaRepo.findById(codigo);
+        if(subcategoria.isEmpty()){
+            throw new Exception("No existe la subcategoria con ese codigo");
+        }
+        return subcategoria.get();
+    }
+
+    @Override
+    public List<Subcategoria> listarSubcategorias() {
+        return subcategoriaRepo.findAll();
+    }
+
 }

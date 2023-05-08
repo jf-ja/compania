@@ -151,5 +151,9 @@ public interface VendedorServicio {
 
     Direccion crearDireccion(Direccion direccion) throws Exception;
 
+    //--------------------------------------GESTIONAR SUBCATEGORIA--------------------------------
 
+    Subcategoria obtenerSubcategoria(Integer codigo) throws Exception;
+
+    List<Subcategoria> listarSubcategorias();
 }
