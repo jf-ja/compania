@@ -51,13 +51,14 @@
                                         PRODUCTOS
                                     </a>
                                 </li>
-                                <li style="margin-left: 200px">
-                                    <div>
-                                        <h:form rendered="#{seguridadBean.autenticado}">
-                                            <p:outputLabel value="Hola, #{seguridadBean.vendedor.nombre}" styleClass="me-3"/>
-                                            <p:commandButton value="Cerrar Sesion" action="#{seguridadBean.cerrarSesion()}" styleClass="ui-button-outlined ui-button-text-icon-primary me-3"/>
-                                        </h:form>
-                                    </div>
+                                <li style="margin-top: -15px">
+                                    <h:panelGrid columns="2" style="margin-left: 100px" rendered="#{seguridadBean.autenticado}">
+                                        <p:outputLabel style="font-size: 15px;margin-top: 12px" value="Hola, #{seguridadBean.vendedor.nombre} #{seguridadBean.vendedor.apellido}" styleClass="me-3"/>
+                                            <p:commandButton value="Cerrar Cesion" action="#{seguridadBean.cerrarSesion}"
+                                                             styleClass="mt-3" update="@form" icon="pi pi-sign-in"
+                                                             iconPos="left"/>
+                                            <p:growl for="login-bean" showDetail="true"/>
+                                    </h:panelGrid>
                                 </li>
                             </ul>
                         </div>

@@ -14,7 +14,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -53,7 +52,6 @@ public class SeguridadBean implements Serializable {
     @PostConstruct
     public void inicializar() {
 
-        autenticado = false;
     }
 
     public String iniciarSesion() {
@@ -88,8 +86,9 @@ public class SeguridadBean implements Serializable {
     }
 
     public String cerrarSesion() {
+        System.out.println("Aqui llego");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/index?faces-redirect=true";
+        return "/index.xhtml?faces-redirect=true";
 
     }
 }
