@@ -16,7 +16,7 @@ public interface ProductoRepo extends JpaRepository<Producto,Integer> {
     @Query("SELECT pd FROM Producto pd Where pd.nombre like concat('%', :nombre, '%')")
     List<Producto> productoPorNombre(String nombre);
 
-    //Esta consulta validad si existe un vendedor ingresando la cedula
+    //Esta consulta validad si existe un producto ingresando ll codigo
     Optional<Producto> findByCodigo(Integer codigo);
 
 }

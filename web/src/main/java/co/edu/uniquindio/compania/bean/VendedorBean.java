@@ -1,9 +1,6 @@
 package co.edu.uniquindio.compania.bean;
 
-import co.edu.uniquindio.compania.entidades.Ciudad;
-import co.edu.uniquindio.compania.entidades.Direccion;
-import co.edu.uniquindio.compania.entidades.Pais;
-import co.edu.uniquindio.compania.entidades.Vendedor;
+import co.edu.uniquindio.compania.entidades.*;
 import co.edu.uniquindio.compania.servicios.VendedorServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,12 +50,16 @@ public class VendedorBean {
     @Setter
     private Direccion direccion;
 
+    @Getter @Setter
+    private List<Afiliacion> afiliaciones;
+
     @PostConstruct
     public void init(){
         vendedor = new Vendedor();
         direccion = new Direccion();
         vendedoresSeleccionados = new ArrayList<>();
         ciudades = vendedorServicio.listarCiudades();
+        afiliaciones = vendedorServicio.listarAfiliacion();
         vendedoresVendedor= vendedorServicio.listarVendedoresVendedor(vendedorSesion.getCodigo());
         editar=false;
     }
@@ -91,7 +92,6 @@ public class VendedorBean {
                 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Registro Exitoso");
                 FacesContext.getCurrentInstance().addMessage("mensaje_registro_vendedor", facesMessage);
             }else {
-
                 vendedorServicio.actualizarVendedor(vendedor);
                 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Actualizacion Exitosa");
                 FacesContext.getCurrentInstance().addMessage("mensaje_registro_vendedor", facesMessage);

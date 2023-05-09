@@ -86,7 +86,6 @@ public class SeguridadBean implements Serializable {
     }
 
     public String cerrarSesion() {
-        System.out.println("Aqui llego");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index.xhtml?faces-redirect=true";
 

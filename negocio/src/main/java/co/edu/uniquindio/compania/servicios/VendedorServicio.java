@@ -106,6 +106,8 @@ public interface VendedorServicio {
 
     List<DetalleVenta> listarDetalleVenta();
 
+    List<DetalleVenta> obtenerDetalleVentasVendedor(Integer codigo);
+
     //----------------------------------- GESTIONAR ENVIOS -------------------------------------
 
     Envio crearEnvio(Envio envio) throws Exception;
@@ -156,4 +158,6 @@ public interface VendedorServicio {
     Subcategoria obtenerSubcategoria(Integer codigo) throws Exception;
 
     List<Subcategoria> listarSubcategorias();
+
+
 }

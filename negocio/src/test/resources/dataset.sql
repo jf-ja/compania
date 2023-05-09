@@ -48,6 +48,7 @@ INSERT INTO direccion VALUES (8, "Quindos" , "Casa" , 3);
 INSERT INTO direccion VALUES (9, "Castellana" , "Casa" , 2);
 INSERT INTO direccion VALUES (10, "Proviteq" , "Casa" , 3);
 INSERT INTO direccion VALUES (11, "Yulima" , "Apartamento" , 2);
+INSERT INTO direccion VALUES (12, "Manantiales" , "Apartamento" , 1);
 
 
 
@@ -55,9 +56,9 @@ INSERT INTO direccion VALUES (11, "Yulima" , "Apartamento" , 2);
   CLIENTE: id, apellido, correo, nombre, telefono, direccion_id.
  */
 
-INSERT INTO cliente VALUES (1, "Zapata", "za@gmail.com", "Liliana", "3120001123",1);
-INSERT INTO cliente VALUES (2, "Velez", "ve@gmail.com", "Jose", "3116731543",3);
-INSERT INTO cliente VALUES (3, "Arango", "ar@gmail.com", "Felipe", "3110138923",2);
+INSERT INTO cliente VALUES (1, "Zapata", "23456","za@gmail.com", "Liliana", "3120001123",1);
+INSERT INTO cliente VALUES (2, "Velez", "67253", "ve@gmail.com", "Jose", "3116731543",3);
+INSERT INTO cliente VALUES (3, "Arango", "10971", "ar@gmail.com", "Felipe", "3110138923",2);
 
 
 /*------------------------------------AFILIACION---------------------------------------------
@@ -161,6 +162,7 @@ INSERT INTO transportador VALUES (3, "Hernandez", "Luis" , "MFY198",2050000, "KI
 
 INSERT INTO envio VALUES (1, 10, 1);
 INSERT INTO envio VALUES (2, 11, 2);
+INSERT INTO envio VALUES (3, 12, 1);
 
 /*-------------------------------------------VENTA--------------------------------------------------
   VENTA: id, descripcion, fecha, cliente_id, envio_id, vendedor_id.
@@ -168,11 +170,15 @@ INSERT INTO envio VALUES (2, 11, 2);
 
 INSERT INTO venta VALUES (1, "Venta completada", "2023-03-01", 1, 1, 1);
 INSERT INTO venta VALUES (2, "Venta Pendiente", "2023-04-02", 2, 2, 1);
+INSERT INTO venta VALUES (3, "Venta Completada", "2023-05-03", 3, 3, 2);
+INSERT INTO venta VALUES (4, "Venta Pendiente", "2023-05-09", 2, 2, 1);
 
 
 /*----------------------------------------------DETALLE_VENTA----------------------------------------
   DETALLE_VENTA: id, cantidad, precio, producto_id, venta_id.
 */
 
-INSERT INTO detalle_venta VALUES (1, 3, 30000, 4, 2);
+INSERT INTO detalle_venta VALUES (1, 3, 30000, 4, 1);
 INSERT INTO detalle_venta VALUES (2, 4, 92000, 8, 2);
+INSERT INTO detalle_venta VALUES (3, 5, 92000, 3, 3);
+INSERT INTO detalle_venta VALUES (4, 2, 92000, 1, 4);

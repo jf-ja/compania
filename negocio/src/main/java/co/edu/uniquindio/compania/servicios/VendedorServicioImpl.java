@@ -231,12 +231,17 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public Cliente crearCliente(Cliente cliente) throws Exception {
-        Cliente clienteExiste = clienteRepo.findById(cliente.getCodigo()).orElse(null);
-        if(clienteExiste != null){
-            throw new Exception("Ya existe el cliente con ese codigo ");
+        boolean clienteExiste = clienteRepetido(cliente.getCodigo());
+        if(clienteExiste){
+            throw new Exception("La cedula para el cliente ya Existe");
         }
         return clienteRepo.save(cliente);
     }
+
+    private boolean clienteRepetido(Integer codigo){
+        return clienteRepo.findByCodigo(codigo).orElse(null)!=null;
+    }
+
 
     @Override
     public Cliente obtenerCliente(Integer codigo) throws Exception {
@@ -406,6 +411,12 @@ public class VendedorServicioImpl implements VendedorServicio{
     @Override
     public List<DetalleVenta> listarDetalleVenta() {
         return detalleVentaRepo.findAll();
+    }
+
+    @Override
+    public List<DetalleVenta> obtenerDetalleVentasVendedor(Integer codigo){
+        List<DetalleVenta> detalleVentas = detalleVentaRepo.obtenerDetallesVentasVendedor(codigo);
+        return detalleVentas;
     }
 
     //----------------------------------- GESTIONAR ENVIOS -------------------------------------

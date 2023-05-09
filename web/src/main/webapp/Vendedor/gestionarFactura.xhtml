@@ -10,6 +10,66 @@
     <ui:define name="title">Gestion Factura</ui:define>
     <ui:define name="content">
         <p>Contenido de la página de ejemplo factura</p>
+
+
+
+        <h:form id="crud_detalleVenta">
+
+
+            <p:dataTable id="lista_detalleVentas" value="#{detalleVentaBean.detalleVentas}" var="detalleVenta" paginator="true" rows="10"
+                         rowKey="#{detalleVenta.codigo}"
+                         paginatorPosition="bottom" rowSelectMode="add">
+
+                <p:column selectionMode="multiple" exportable="false" />
+
+                <p:column headerText="Codigo" >
+                    <h:outputText value="#{detalleVenta.codigo}"/>
+                </p:column>
+
+                <p:column headerText="Producto" >
+                    <h:outputText value="#{detalleVenta.producto.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Cantidad" >
+                    <h:outputText value="#{detalleVenta.cantidad}"/>
+                </p:column>
+
+                <p:column headerText="Precio Total" >
+                    <h:outputText value="#{detalleVenta.precioTotal}"/>
+                </p:column>
+
+                <p:column headerText="Vendedor" >
+                    <h:outputText value="#{detalleVenta.venta.vendedor.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Cliente" >
+                    <h:outputText value="#{detalleVenta.venta.cliente.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Venta ID" >
+                    <h:outputText value="#{detalleVenta.venta.codigo}"/>
+                </p:column>
+
+                <p:column headerText="Fecha" >
+                    <h:outputText value="#{detalleVenta.venta.fecha}"/>
+                </p:column>
+
+                <p:column headerText="Descripcion" >
+                    <h:outputText value="#{detalleVenta.venta.descripcion}"/>
+                </p:column>
+
+                <p:column headerText="Ciudad Envio" >
+                    <h:outputText value="#{detalleVenta.venta.envio.direccion.ciudad.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Lugar Envio" >
+                    <h:outputText value="#{detalleVenta.venta.envio.direccion.direccion}"/>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+
     </ui:define>
 </ui:composition>
 </html>

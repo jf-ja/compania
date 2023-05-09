@@ -20,6 +20,8 @@ public class Cliente implements Serializable {
     @EqualsAndHashCode.Include
     private Integer codigo;
 
+    private String cedula;
+
     private String nombre;
 
     private String apellido;
@@ -36,7 +38,8 @@ public class Cliente implements Serializable {
     private List<Venta> ventas;
 
     @Builder
-    public Cliente(String nombre, String apellido, String correo, String telefono) {
+    public Cliente(String cedula, String nombre, String apellido, String correo, String telefono) {
+        this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
