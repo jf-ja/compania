@@ -66,6 +66,8 @@ public interface VendedorServicio {
 
     List<Cliente> listarCliente();
 
+    Cliente obtenerClienteCedula(String cedula)throws Exception;
+
 
     //-------------------------------------GESTIONAR TRANSORTADORES------------------------------
 

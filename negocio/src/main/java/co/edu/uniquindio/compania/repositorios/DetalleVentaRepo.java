@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DetalleVentaRepo extends JpaRepository<DetalleVenta,Integer> {
@@ -14,4 +15,7 @@ public interface DetalleVentaRepo extends JpaRepository<DetalleVenta,Integer> {
 
     @Query("SELECT dv FROM DetalleVenta dv WHERE dv.venta.vendedor.codigo =:codigo")
     List<DetalleVenta> obtenerDetallesVentasVendedor(Integer codigo);
+
+    //Esta consulta validad si existe un detalle venta ingresando el codigo
+    Optional<DetalleVenta> findByCodigo(Integer codigo);
 }

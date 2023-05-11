@@ -112,17 +112,17 @@ INSERT INTO subcategoria VALUES (6, "Maquillaje" , 3);
   PRODUCTO: codigo, descripcion, nombre, precio, stock, subcategoria_id.
  */
 
-INSERT INTO producto VALUES (1, "Productos para control de salud" , "Medidor Cardiovascular", 120000, 10, 1);
-INSERT INTO producto VALUES (2, "Productos para control de salud" , "Medidor Glucemia", 85000, 12, 1);
-INSERT INTO producto VALUES (3, "Productos para control de salud" , "Tensiometro", 92000, 15, 1);
-INSERT INTO producto VALUES (4, "Productos para mejorar la salud" , "Sevedol", 10000, 20, 2);
-INSERT INTO producto VALUES (5, "Productos de proteinas" , "Pro-fitness", 45000, 8, 3);
-INSERT INTO producto VALUES (6, "Productos de proteinas" , "Pro-fitness Premium", 70000, 5, 3);
-INSERT INTO producto VALUES (7, "Productos para vitaminas y minerales" , "Vitamina C", 15000, 18, 4);
-INSERT INTO producto VALUES (8, "Productos para cuidado personal" , "Shampoo", 23000, 7, 5);
-INSERT INTO producto VALUES (9, "Productos para cuidado personal" , "Crema Hidratante", 18000, 13, 5);
-INSERT INTO producto VALUES (10, "Productos para la belleza" , "Polvos y sombra", 33000, 14, 6);
-INSERT INTO producto VALUES (11, "Productos para la belleza" , "Secadora", 110000, 8, 6);
+INSERT INTO producto VALUES (1, "Productos para control de salud" , "Medidor Cardiovascular", 120000, 0, 1);
+INSERT INTO producto VALUES (2, "Productos para control de salud" , "Medidor Glucemia", 85000, 0, 1);
+INSERT INTO producto VALUES (3, "Productos para control de salud" , "Tensiometro", 92000, 0, 1);
+INSERT INTO producto VALUES (4, "Productos para mejorar la salud" , "Sevedol", 10000, 0, 2);
+INSERT INTO producto VALUES (5, "Productos de proteinas" , "Pro-fitness", 45000, 0, 3);
+INSERT INTO producto VALUES (6, "Productos de proteinas" , "Pro-fitness Premium", 70000, 0, 3);
+INSERT INTO producto VALUES (7, "Productos para vitaminas y minerales" , "Vitamina C", 15000, 0, 4);
+INSERT INTO producto VALUES (8, "Productos para cuidado personal" , "Shampoo", 23000, 0, 5);
+INSERT INTO producto VALUES (9, "Productos para cuidado personal" , "Crema Hidratante", 18000, 0, 5);
+INSERT INTO producto VALUES (10, "Productos para la belleza" , "Polvos y sombra", 33000, 0, 6);
+INSERT INTO producto VALUES (11, "Productos para la belleza" , "Secadora", 110000, 0, 6);
 
 
 

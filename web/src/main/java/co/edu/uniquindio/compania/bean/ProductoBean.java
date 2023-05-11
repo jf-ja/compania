@@ -2,10 +2,12 @@ package co.edu.uniquindio.compania.bean;
 
 import co.edu.uniquindio.compania.entidades.Producto;
 import co.edu.uniquindio.compania.entidades.Subcategoria;
+import co.edu.uniquindio.compania.entidades.Vendedor;
 import co.edu.uniquindio.compania.servicios.VendedorServicio;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -21,6 +23,10 @@ public class ProductoBean {
 
     @Autowired
     private VendedorServicio vendedorServicio;
+
+    @Value("#{seguridadBean.vendedor}")
+    private Vendedor vendedorSesion;
+    
     @Getter @Setter
     private Producto producto;
 

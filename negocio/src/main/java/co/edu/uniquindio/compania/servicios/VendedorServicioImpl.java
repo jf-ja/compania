@@ -275,6 +275,15 @@ public class VendedorServicioImpl implements VendedorServicio{
         return clienteRepo.findAll();
     }
 
+    @Override
+    public Cliente obtenerClienteCedula(String cedula) throws Exception {
+        Cliente cliente = clienteRepo.obtenerClienteCedula(cedula);
+        if(cliente == null){
+            throw new Exception("No se encontro el cliente");
+        }
+        return cliente;
+    }
+
     //-------------------------------------GESTIONAR TRANSORTADORES------------------------------
 
 
@@ -324,11 +333,15 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public Venta crearVenta(Venta venta) throws Exception {
-        Venta ventaExiste = ventaRepo.findById(venta.getCodigo()).orElse(null);
-        if(ventaExiste != null){
-            throw new Exception("Ya existe la venta con ese codigo ");
+        boolean ventaExiste = ventaRepetido(venta.getCodigo());
+        if(ventaExiste){
+            throw new Exception("La venta ya Existe");
         }
         return ventaRepo.save(venta);
+    }
+
+    private boolean ventaRepetido(Integer codigo){
+        return ventaRepo.findByCodigo(codigo).orElse(null)!=null;
     }
 
     @Override
@@ -374,11 +387,15 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public DetalleVenta crearDetalleVenta(DetalleVenta detalleVenta) throws Exception {
-        DetalleVenta detalleVentaExiste = detalleVentaRepo.findById(detalleVenta.getCodigo()).orElse(null);
-        if(detalleVentaExiste != null){
-            throw new Exception("Ya existe el detalle de venta con ese codigo ");
+        boolean detalleVentaExiste = detalleVentaRepetido(detalleVenta.getCodigo());
+        if(detalleVentaExiste){
+            throw new Exception("El detalle venta ya Existe");
         }
         return detalleVentaRepo.save(detalleVenta);
+    }
+
+    private boolean detalleVentaRepetido(Integer codigo){
+        return detalleVentaRepo.findByCodigo(codigo).orElse(null)!=null;
     }
 
     @Override
@@ -424,11 +441,15 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public Envio crearEnvio(Envio envio) throws Exception {
-        Envio envioExiste = envioRepo.findById(envio.getCodigo()).orElse(null);
-        if(envioExiste != null){
-            throw new Exception("Ya existe el envio con ese codigo ");
+        boolean envioExiste = envioRepetido(envio.getCodigo());
+        if(envioExiste){
+            throw new Exception("El envio ya Existe");
         }
         return envioRepo.save(envio);
+    }
+
+    private boolean envioRepetido(Integer codigo){
+        return envioRepo.findByCodigo(codigo).orElse(null)!=null;
     }
 
     @Override
