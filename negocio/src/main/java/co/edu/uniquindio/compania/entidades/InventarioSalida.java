@@ -22,8 +22,6 @@ public class InventarioSalida {
 
     private Integer cantidad;
 
-    private String descripcion;
-
     private LocalDate fechaSalida;
 
     @ManyToOne
@@ -33,9 +31,8 @@ public class InventarioSalida {
     private Vendedor vendedor;
 
     @Builder
-    public InventarioSalida(Integer cantidad, String descripcion, LocalDate fechaSalida) {
+    public InventarioSalida(Integer cantidad, LocalDate fechaSalida) {
         this.cantidad = cantidad;
-        this.descripcion = descripcion;
         this.fechaSalida = fechaSalida;
     }
 }

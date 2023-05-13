@@ -49,6 +49,7 @@ INSERT INTO direccion VALUES (9, "Castellana" , "Casa" , 2);
 INSERT INTO direccion VALUES (10, "Proviteq" , "Casa" , 3);
 INSERT INTO direccion VALUES (11, "Yulima" , "Apartamento" , 2);
 INSERT INTO direccion VALUES (12, "Manantiales" , "Apartamento" , 1);
+INSERT INTO direccion VALUES (13, "Balboa" , "Casa" , 5);
 
 
 
@@ -130,20 +131,21 @@ INSERT INTO producto VALUES (11, "Productos para la belleza" , "Secadora", 11000
   INVENTARIO_ENTRADA: id, cantidad, descripcion, fecha_entrada, producto_id, vendedor_id.
  */
 
-INSERT INTO inventario_entrada VALUES (1, 5, "Productos para control de salud", "2023-01-01", 1, 1);
-INSERT INTO inventario_entrada VALUES (2, 8, "Productos para mejorar la salud", "2022-01-03", 4, 2);
-INSERT INTO inventario_entrada VALUES (3, 10, "Productos de proteinas", "2022-01-07", 6, 1);
-INSERT INTO inventario_entrada VALUES (4, 5, "Productos para la belleza", "2022-01-07", 10, 3);
+INSERT INTO inventario_entrada VALUES (1, 12, "Entrega Completada", "2023-01-01", 1, 1);
+INSERT INTO inventario_entrada VALUES (2, 8, "Entrega Completada", "2022-01-03", 4, 2);
+INSERT INTO inventario_entrada VALUES (3, 10, "Entrega Completada", "2022-01-07", 6, 1);
+INSERT INTO inventario_entrada VALUES (4, 9, "Entrega Completada", "2022-01-07", 10, 3);
+INSERT INTO inventario_entrada VALUES (5, 15, "Entrega Completada", "2022-01-07", 6, 2);
 
 
 /*---------------------------------------------INVENTARIO_SALIDA-----------------------------------
   INVENTARIO_SALIDA: id, cantidad, descripcion, fecha_salida, producto_id, vendedor_id.
  */
 
-INSERT INTO inventario_salida VALUES (1, 2, "Productos para control de salud", "2023-02-06", 1, 1);
-INSERT INTO inventario_salida VALUES (2, 3, "Productos para mejorar la salud", "2022-02-07", 4, 2);
-INSERT INTO inventario_salida VALUES (3, 4, "Productos de proteinas", "2022-02-09", 6, 2);
-INSERT INTO inventario_salida VALUES (4, 9, "Productos para la belleza", "2022-02-11", 10, 3);
+INSERT INTO inventario_salida VALUES (1, 2, "2023-02-06", 1, 1);
+INSERT INTO inventario_salida VALUES (2, 3, "2023-02-07", 4, 2);
+INSERT INTO inventario_salida VALUES (3, 4, "2023-02-09", 6, 2);
+INSERT INTO inventario_salida VALUES (4, 8, "2023-02-11", 10, 3);
 
 
 
@@ -163,6 +165,7 @@ INSERT INTO transportador VALUES (3, "Hernandez", "Luis" , "MFY198",2050000, "KI
 INSERT INTO envio VALUES (1, 10, 1);
 INSERT INTO envio VALUES (2, 11, 2);
 INSERT INTO envio VALUES (3, 12, 1);
+INSERT INTO envio VALUES (4, 13, 3);
 
 /*-------------------------------------------VENTA--------------------------------------------------
   VENTA: id, descripcion, fecha, cliente_id, envio_id, vendedor_id.
@@ -171,7 +174,7 @@ INSERT INTO envio VALUES (3, 12, 1);
 INSERT INTO venta VALUES (1, "Venta completada", "2023-03-01", 1, 1, 1);
 INSERT INTO venta VALUES (2, "Venta Pendiente", "2023-04-02", 2, 2, 1);
 INSERT INTO venta VALUES (3, "Venta Completada", "2023-05-03", 3, 3, 2);
-INSERT INTO venta VALUES (4, "Venta Pendiente", "2023-05-09", 2, 2, 1);
+INSERT INTO venta VALUES (4, "Venta Pendiente", "2023-05-09", 2, 4, 1);
 
 
 /*----------------------------------------------DETALLE_VENTA----------------------------------------

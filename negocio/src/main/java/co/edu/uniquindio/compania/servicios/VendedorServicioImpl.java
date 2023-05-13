@@ -35,12 +35,13 @@ public class VendedorServicioImpl implements VendedorServicio{
     private final PaisRepo paisRepo;
     @Autowired
     private final DireccionRepo direccionRepo;
-
     @Autowired
     private final SubcategoriaRepo subcategoriaRepo;
+    @Autowired
+    private final InventarioSalidaRepo inventarioSalidaRepo;
 
 
-    public VendedorServicioImpl(VendedorRepo vendedorRepo, ProductoRepo productoRepo, InventarioEntradaRepo inventarioEntradaRepo, ClienteRepo clienteRepo, TransportadorRepo transportadorRepo, VentaRepo ventaRepo, DetalleVentaRepo detalleVentaRepo, EnvioRepo envioRepo, AfiliacionRepo afiliacionRepo, CiudadRepo ciudadRepo, PaisRepo paisRepo, DireccionRepo direccionRepo, SubcategoriaRepo subcategoriaRepo) {
+    public VendedorServicioImpl(VendedorRepo vendedorRepo, ProductoRepo productoRepo, InventarioEntradaRepo inventarioEntradaRepo, ClienteRepo clienteRepo, TransportadorRepo transportadorRepo, VentaRepo ventaRepo, DetalleVentaRepo detalleVentaRepo, EnvioRepo envioRepo, AfiliacionRepo afiliacionRepo, CiudadRepo ciudadRepo, PaisRepo paisRepo, DireccionRepo direccionRepo, SubcategoriaRepo subcategoriaRepo, InventarioSalidaRepo inventarioSalidaRepo) {
         this.vendedorRepo = vendedorRepo;
         this.productoRepo = productoRepo;
         this.inventarioEntradaRepo = inventarioEntradaRepo;
@@ -54,6 +55,7 @@ public class VendedorServicioImpl implements VendedorServicio{
         this.paisRepo = paisRepo;
         this.direccionRepo = direccionRepo;
         this.subcategoriaRepo = subcategoriaRepo;
+        this.inventarioSalidaRepo = inventarioSalidaRepo;
     }
 
     //----------------------------------- LOGIN------------------------------------------
@@ -180,11 +182,15 @@ public class VendedorServicioImpl implements VendedorServicio{
 
     @Override
     public InventarioEntrada crearInventarioEntrada(InventarioEntrada inventarioEntrada) throws Exception {
-        InventarioEntrada inventarioEntradaExiste = inventarioEntradaRepo.findById(inventarioEntrada.getCodigo()).orElse(null);
-        if(inventarioEntradaExiste != null){
-            throw new Exception("Ya existe el inventario de entrada con ese codigo ");
+        boolean inventarioEntradaExiste = inventarioEntradaRepetido(inventarioEntrada.getCodigo());
+        if(inventarioEntradaExiste){
+            throw new Exception("El codigo de entrada ya Existe");
         }
         return inventarioEntradaRepo.save(inventarioEntrada);
+    }
+
+    private boolean inventarioEntradaRepetido(Integer codigo){
+        return inventarioEntradaRepo.findByCodigo(codigo).orElse(null)!=null;
     }
 
     @Override
@@ -359,6 +365,7 @@ public class VendedorServicioImpl implements VendedorServicio{
         if (ventaGuardada.isEmpty()){
             throw new Exception("No se encontro la venta con este codigo");
         }
+        direccionRepo.save(venta.getEnvio().getDireccion());
         return ventaRepo.save(venta);
     }
 
@@ -598,6 +605,50 @@ public class VendedorServicioImpl implements VendedorServicio{
     @Override
     public List<Subcategoria> listarSubcategorias() {
         return subcategoriaRepo.findAll();
+    }
+
+    @Override
+    public List<Producto> obtenerProductosVendedor(Integer codigo) {
+        List<InventarioEntrada> inventarioEntradas = inventarioEntradaRepo.mostrarInventarioEntradaVendedor(codigo);
+        List<InventarioSalida> inventarioSalidas = inventarioSalidaRepo.mostrarInventarioSalidaVendedor(codigo);
+        List<Producto> productosInventario = listarProducto();
+
+        if (inventarioEntradas.isEmpty()){
+            return productosInventario;
+        }
+
+        for(InventarioEntrada inventarioEntrada: inventarioEntradas) {
+            for (Producto producto : productosInventario) {
+                if (inventarioEntrada.getProducto().equals(producto) && inventarioEntrada.getDescripcion().equals("Entrega Completada")) {
+                    producto.setStock(producto.getStock() + inventarioEntrada.getCantidad());
+                }
+            }
+        }
+
+        for(InventarioSalida inventarioSalida: inventarioSalidas) {
+            for (Producto producto : productosInventario) {
+                if (inventarioSalida.getProducto().equals(producto)) {
+                    producto.setStock(producto.getStock() - inventarioSalida.getCantidad());
+                }
+            }
+        }
+
+        return productosInventario;
+
+    }
+
+    //-----------------------------------------INVENTARIO SALIDA------------------------------------
+    @Override
+    public InventarioSalida crearInventarioSalida(InventarioSalida inventarioSalida) throws Exception {
+        boolean inventarioSalidaExiste = inventarioSalidaRepetido(inventarioSalida.getCodigo());
+        if(inventarioSalidaExiste){
+            throw new Exception("El codigo de salida ya Existe");
+        }
+        return inventarioSalidaRepo.save(inventarioSalida);
+    }
+
+    private boolean inventarioSalidaRepetido(Integer codigo){
+        return inventarioSalidaRepo.findByCodigo(codigo).orElse(null)!=null;
     }
 
 }

@@ -10,169 +10,167 @@
     <ui:define name="title">Gestion Venta</ui:define>
     <ui:define name="content">
 
-        <div style="background-color: #9fcbce ; margin-bottom: 20px; margin-left: 200px;margin-top: 10px; width: 900px; padding-left: 30px; padding-right: 30px">
-            <h1 style="text-align: center; color: black">REGISTRAR VENTA</h1>
-
-            <h:form>
-                <h:panelGrid columns="3" cellpadding="5" >
-
-
-                    <p:outputLabel for="cedula_cliente" value = "Cedula Cliente: "/>
-                    <p:inputText id="cedula_cliente" value = "#{ventaBean.cedulaCliente}" required="true"/>
-                    <p:messages for="cedula_cliente"/>
-
-                    <p:outputLabel style="text-align: left" for="nombre_producto" value = "Producto: "/>
-                    <p:selectOneMenu id="nombre_producto" value="#{ventaBean.producto}" converter="#{productoConverter}">
-                        <f:selectItem itemLabel="Seleccione el producto" noSelectionOption="true" itemValue="#{null}"/>
-                        <f:selectItems value="#{ventaBean.productos}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto}"/>
-                    </p:selectOneMenu>
-
-                    <div class="field col-12 md:col-4">
-                        <p:outputLabel style="text-align: left" for="cantidad_producto" value = "Cantidad: "/>
-                        <p:spinner id="cantidad_producto" value="#{ventaBean.detalleVenta.cantidad}"/>
-                    </div>
-
-                    <p:outputLabel for="precio_producto" value = "Precio Total: "/>
-                    <p:inputText id="precio_producto" value = "#{ventaBean.detalleVenta.precioTotal}" required="true" readonly="true"/>
-                    <p:messages for="precio_producto"/>
-
-
-                    <p:outputLabel style="text-align: left" for="ciudad_Envio" value = "Ciudad: "/>
-                    <p:selectOneMenu id="ciudad_Envio" value="#{ventaBean.direccion.ciudad}" converter="#{ciudadConverter}">
-                        <f:selectItem itemLabel="Seleccione la ciudad" noSelectionOption="true" itemValue="#{null}"/>
-                        <f:selectItems value="#{ventaBean.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad}"/>
-                    </p:selectOneMenu>
-
-                    <hr></hr>
-
-                    <p:outputLabel for="direccion_envio" value = "Direccion: "/>
-                    <p:inputText id="direccion_envio" value = "#{ventaBean.direccion.direccion}" required="true"/>
-                    <p:messages for="direccion_envio"/>
-
-                    <p:outputLabel for="tipo_direccion" value = "Tipo Direccion: "/>
-                    <p:inputText id="tipo_direccion" value = "#{ventaBean.direccion.tipo}" required="true"/>
-                    <p:messages for="tipo_direccion"/>
-
-                    <p:outputLabel style="text-align: left" for="transportador_Envio" value = "Transportador: "/>
-                    <p:selectOneMenu id="transportador_Envio" value="#{ventaBean.venta.envio.transportador}" converter="#{transportadorConverter}">
-                        <f:selectItem itemLabel="Seleccione el transportador" noSelectionOption="true" itemValue="#{null}"/>
-                        <f:selectItems value="#{ventaBean.trasnportadores}" var="transportador" itemLabel="#{transportador.nombre}" itemValue="#{transportador}"/>
-                    </p:selectOneMenu>
-
-
-                </h:panelGrid>
-                <p:commandButton style="margin-bottom: 20px" value="#{ventaBean.mensajeCrearEditar}" action= "#{ventaBean.registrarVenta()}" icon="pi pi-plus-circle" update="@form,crud_venta:lista_ventas"/>
-                <p:growl for="mensaje_registro_venta" showDetail="true"/>
-
-            </h:form>
-        </div>
-
-
         <h:form id="crud_venta">
 
-                <p:toolbar>
-                    <p:toolbarGroup>
-                        <p:commandButton id="boton_borrar" value="#{ventaBean.mensajeBorrar}" icon="pi pi-trash" disabled="#{ventaBean.ventasSeleccionados.size()==0}" styleClass="ui-button-danger" action="#{ventaBean.eliminarVenta()}" update="crud_venta:lista_ventas,@this" />
-                    </p:toolbarGroup>
-                </p:toolbar>
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton style="background-color: #25cff2;border-color: #25cff2" value="Registrar" icon="pi pi-plus" styleClass="ui-button-success me-3" action="#{ventaBean.crearVentaDialog()}" update="dialogo_crear" oncomplete="PF('registrar_venta').show()" />
+                    <p:commandButton id="boton_borrar" value="#{ventaBean.mensajeBorrar}" icon="pi pi-trash" disabled="#{ventaBean.ventasSeleccionados.size()==0}" styleClass="ui-button-danger" action="#{ventaBean.eliminarVenta()}" update="crud_venta:lista_ventas,@this" />
+                </p:toolbarGroup>
+            </p:toolbar>
 
 
-                <p:dataTable id="lista_ventas" value="#{ventaBean.ventasVendedor}" var="venta" paginator="true" rows="10"
-                             rowKey="#{venta.codigo}"
-                             paginatorPosition="bottom" rowSelectMode="add"
-                             selection="#{ventaBean.ventasSeleccionados}">
+            <p:dataTable id="lista_ventas" value="#{ventaBean.ventasVendedor}" var="venta" paginator="true" rows="10"
+                         rowKey="#{venta.codigo}"
+                         paginatorPosition="bottom" rowSelectMode="add"
+                         selection="#{ventaBean.ventasSeleccionados}">
 
-                    <p:ajax event="rowSelect" update="crud_venta:boton_borrar" />
-                    <p:ajax event="rowUnselect" update="crud_venta:boton_borrar" />
-                    <p:ajax event="rowSelectCheckbox" update="crud_venta:boton_borrar" />
-                    <p:ajax event="rowUnselectCheckbox" update="crud_venta:boton_borrar" />
-                    <p:ajax event="toggleSelect" update="crud_venta:boton_borrar" />
+                <p:ajax event="rowSelect" update="crud_venta:boton_borrar" />
+                <p:ajax event="rowUnselect" update="crud_venta:boton_borrar" />
+                <p:ajax event="rowSelectCheckbox" update="crud_venta:boton_borrar" />
+                <p:ajax event="rowUnselectCheckbox" update="crud_venta:boton_borrar" />
+                <p:ajax event="toggleSelect" update="crud_venta:boton_borrar" />
 
-                    <p:column selectionMode="multiple" exportable="false" />
+                <p:column selectionMode="multiple" exportable="false" />
 
-                    <p:column headerText="Codigo" >
-                        <h:outputText value="#{venta.codigo}"/>
-                    </p:column>
+                <p:column headerText="Codigo" >
+                    <h:outputText value="#{venta.codigo}"/>
+                </p:column>
 
-                    <p:column headerText="Cliente" >
-                        <h:outputText value="#{venta.cliente.cedula}"/>
-                    </p:column>
+                <p:column headerText="Cliente" >
+                    <h:outputText value="#{venta.cliente.cedula}"/>
+                </p:column>
 
-                    <p:column headerText="Estado" >
-                        <h:outputText value="#{venta.descripcion}"/>
-                    </p:column>
+                <p:column headerText="Estado" >
+                    <h:outputText value="#{venta.descripcion}"/>
+                </p:column>
 
-                    <p:column headerText="Fecha Venta" >
-                        <h:outputText value="#{venta.fecha}"/>
-                    </p:column>
+                <p:column headerText="Fecha Venta" >
+                    <h:outputText value="#{venta.fecha}"/>
+                </p:column>
 
-                    <p:column headerText="Ciudad Envio" >
-                        <h:outputText value="#{venta.envio.direccion.ciudad.nombre}"/>
-                    </p:column>
+                <p:column headerText="Ciudad Envio" >
+                    <h:outputText value="#{venta.envio.direccion.ciudad.nombre}"/>
+                </p:column>
 
-                    <p:column headerText="Direccion" >
-                        <h:outputText value="#{venta.envio.direccion.direccion}"/>
-                    </p:column>
+                <p:column headerText="Direccion" >
+                    <h:outputText value="#{venta.envio.direccion.direccion}"/>
+                </p:column>
 
-                    <p:column headerText="Transportador" >
-                        <h:outputText value="#{venta.envio.transportador.nombre}"/>
-                    </p:column>
+                <p:column headerText="Transportador" >
+                    <h:outputText value="#{venta.envio.transportador.nombre}"/>
+                </p:column>
 
-                    <p:column headerText="UPDATE" >
-                        <p:commandButton styleClass="edit-button rounded-button ui-button-success" icon="pi pi-pencil" action="#{ventaBean.seleccionarVentas(venta)}" oncomplete="PF('actualizar_venta').show()" update="dialogo_actualizar"/>
-                    </p:column>
+                <p:column headerText="UPDATE" >
+                    <p:commandButton style="background-color: #25cff2" styleClass="edit-button rounded-button ui-button-success" icon="pi pi-pencil" action="#{ventaBean.seleccionarVentas(venta)}" oncomplete="PF('actualizar_venta').show()" update="dialogo_actualizar"/>
+                </p:column>
 
-                </p:dataTable>
+            </p:dataTable>
         </h:form>
 
-            <!-- _______________________________________ACTUALIZAR_________________________________________ -->
 
-
-
-
-            <p:dialog id="dialogo_actualizar" widgetVar="actualizar_venta" modal="true" header="#{ventaBean.mensajeCrearEditar}" showEffect="fade">
-
-                <h1>ACTUALIZAR VENTA</h1>
+        <div>
+            <p:dialog id="dialogo_crear" widgetVar="registrar_venta" modal="true" header="#{ventaBean.mensajeCrearEditar}" showEffect="fade">
 
                 <h:form>
                     <h:panelGrid columns="3" cellpadding="5" >
 
 
-                        <p:outputLabel for="cedula_clienteA" value = "Cedula Cliente: "/>
-                        <p:inputText id="cedula_clienteA" value = "#{ventaBean.venta.cliente.cedula}" required="true" readonly="true"/>
-                        <p:messages for="cedula_clienteA"/>
+                        <p:outputLabel for="cedula_cliente" value = "Cedula Cliente: "/>
+                        <p:inputText id="cedula_cliente" value = "#{ventaBean.cedulaCliente}" required="true"/>
+                        <p:messages for="cedula_cliente"/>
 
-                        <p:outputLabel for="fecha_ventaA" value = "Fecha Venta: "/>
-                        <p:inputText id="fecha_ventaA" value = "#{ventaBean.venta.fecha}" required="true" readonly="true"/>
-                        <p:messages for="fecha_ventaA"/>
+                        <p:outputLabel style="text-align: left" for="nombre_producto" value = "Producto: "/>
+                        <p:selectOneMenu id="nombre_producto" value="#{ventaBean.producto}" converter="#{productoConverter}">
+                            <f:selectItem itemLabel="Seleccione el producto" noSelectionOption="true" itemValue="#{null}"/>
+                            <f:selectItems value="#{ventaBean.productos}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto}"/>
+                        </p:selectOneMenu>
 
-                        <p:outputLabel style="text-align: left" for="ciudad_EnvioA" value = "Ciudad: "/>
-                        <p:selectOneMenu id="ciudad_EnvioA" value="#{ventaBean.venta.envio.direccion.ciudad.nombre}" converter="#{ciudadConverter}">
+                        <div class="field col-12 md:col-4">
+                            <p:outputLabel style="text-align: left" for="cantidad_producto" value = "Cantidad: "/>
+                            <p:spinner id="cantidad_producto" value="#{ventaBean.detalleVenta.cantidad}"/>
+                        </div>
+
+                        <p:outputLabel style="text-align: left" for="ciudad_Envio" value = "Ciudad: "/>
+                        <p:selectOneMenu id="ciudad_Envio" value="#{ventaBean.direccion.ciudad}" converter="#{ciudadConverter}">
                             <f:selectItem itemLabel="Seleccione la ciudad" noSelectionOption="true" itemValue="#{null}"/>
                             <f:selectItems value="#{ventaBean.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad}"/>
                         </p:selectOneMenu>
 
                         <hr></hr>
-                        <p:outputLabel for="direccion_envioA" value = "Direccion: "/>
-                        <p:inputText id="direccion_envioA" value = "#{ventaBean.venta.envio.direccion.direccion}" required="true"/>
-                        <p:messages for="direccion_envioA"/>
 
-                        <p:outputLabel for="tipo_direccionA" value = "Tipo Direccion: "/>
-                        <p:inputText id="tipo_direccionA" value = "#{ventaBean.venta.envio.direccion.tipo}" required="true"/>
-                        <p:messages for="tipo_direccionA"/>
+                        <p:outputLabel for="direccion_envio" value = "Direccion: "/>
+                        <p:inputText id="direccion_envio" value = "#{ventaBean.direccion.direccion}" required="true"/>
+                        <p:messages for="direccion_envio"/>
 
-                        <p:outputLabel style="text-align: left" for="transportador_EnvioA" value = "Transportador: "/>
-                        <p:selectOneMenu id="transportador_EnvioA" value="#{ventaBean.venta.envio.transportador}" converter="#{transportadorConverter}">
+                        <p:outputLabel for="tipo_direccion" value = "Tipo Direccion: "/>
+                        <p:inputText id="tipo_direccion" value = "#{ventaBean.direccion.tipo}" required="true"/>
+                        <p:messages for="tipo_direccion"/>
+
+                        <p:outputLabel style="text-align: left" for="transportador_Envio" value = "Transportador: "/>
+                        <p:selectOneMenu id="transportador_Envio" value="#{ventaBean.envio.transportador}" converter="#{transportadorConverter}">
                             <f:selectItem itemLabel="Seleccione el transportador" noSelectionOption="true" itemValue="#{null}"/>
                             <f:selectItems value="#{ventaBean.trasnportadores}" var="transportador" itemLabel="#{transportador.nombre}" itemValue="#{transportador}"/>
                         </p:selectOneMenu>
 
+
                     </h:panelGrid>
-                    <p:commandButton value="#{ventaBean.mensajeCrearEditar}" action= "#{ventaBean.registrarVenta()}" icon="pi pi-plus-circle" update="@form,crud_venta:lista_ventas"/>
+                    <p:commandButton style="margin-bottom: 20px; background-color: #25cff2" value="#{ventaBean.mensajeCrearEditar}" action= "#{ventaBean.registrarVenta()}" icon="pi pi-plus-circle" update="@form,crud_venta:lista_ventas"/>
                     <p:growl for="mensaje_registro_venta" showDetail="true"/>
 
                 </h:form>
             </p:dialog>
+        </div>
+
+        <!-- _______________________________________ACTUALIZAR_________________________________________ -->
+
+
+
+
+        <p:dialog id="dialogo_actualizar" widgetVar="actualizar_venta" modal="true" header="#{ventaBean.mensajeCrearEditar}" showEffect="fade">
+
+            <h1>ACTUALIZAR VENTA</h1>
+
+            <h:form>
+                <h:panelGrid columns="3" cellpadding="5" >
+
+
+                    <p:outputLabel for="cedula_clienteA" value = "Cedula Cliente: "/>
+                    <p:inputText id="cedula_clienteA" value = "#{ventaBean.venta.cliente.cedula}" required="true" readonly="true"/>
+                    <p:messages for="cedula_clienteA"/>
+
+                    <p:outputLabel for="fecha_ventaA" value = "Fecha Venta: "/>
+                    <p:inputText id="fecha_ventaA" value = "#{ventaBean.venta.fecha}" required="true" readonly="true"/>
+                    <p:messages for="fecha_ventaA"/>
+
+                    <p:outputLabel style="text-align: left" for="ciudad_EnvioA" value = "Ciudad: "/>
+                    <p:selectOneMenu id="ciudad_EnvioA" value="#{ventaBean.venta.envio.direccion.ciudad}" converter="#{ciudadConverter}">
+                        <f:selectItem itemLabel="Seleccione la ciudad" noSelectionOption="true" itemValue="#{null}"/>
+                        <f:selectItems value="#{ventaBean.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad}"/>
+                    </p:selectOneMenu>
+
+                    <hr></hr>
+                    <p:outputLabel for="direccion_envioA" value = "Direccion: "/>
+                    <p:inputText id="direccion_envioA" value = "#{ventaBean.venta.envio.direccion.direccion}" required="true"/>
+                    <p:messages for="direccion_envioA"/>
+
+                    <p:outputLabel for="tipo_direccionA" value = "Tipo Direccion: "/>
+                    <p:inputText id="tipo_direccionA" value = "#{ventaBean.venta.envio.direccion.tipo}" required="true"/>
+                    <p:messages for="tipo_direccionA"/>
+
+                    <p:outputLabel style="text-align: left" for="transportador_EnvioA" value = "Transportador: "/>
+                    <p:selectOneMenu id="transportador_EnvioA" value="#{ventaBean.venta.envio.transportador}" converter="#{transportadorConverter}">
+                        <f:selectItem itemLabel="Seleccione el transportador" noSelectionOption="true" itemValue="#{null}"/>
+                        <f:selectItems value="#{ventaBean.trasnportadores}" var="transportador" itemLabel="#{transportador.nombre}" itemValue="#{transportador}"/>
+                    </p:selectOneMenu>
+
+                </h:panelGrid>
+                <p:commandButton style="background-color: #25cff2" value="#{ventaBean.mensajeCrearEditar}" action= "#{ventaBean.registrarVenta()}" icon="pi pi-plus-circle" update="@form,crud_venta:lista_ventas"/>
+                <p:growl for="mensaje_registro_producto" showDetail="true"/>
+
+            </h:form>
+        </p:dialog>
+
 
 
 

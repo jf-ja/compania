@@ -48,9 +48,6 @@ public class VentaBean {
     private DetalleVenta detalleVenta;
 
     @Getter @Setter
-    private Transportador transportador;
-
-    @Getter @Setter
     private List<Transportador> trasnportadores;
 
     @Getter @Setter
@@ -63,10 +60,16 @@ public class VentaBean {
     private Producto producto;
 
     @Getter @Setter
+    private InventarioSalida inventarioSalida;
+
+    @Getter @Setter
     private boolean editar;
 
     @Getter @Setter
     private String cedulaCliente;
+
+    @Getter @Setter
+    private Integer cantidad;
 
     @PostConstruct
     public void init(){
@@ -76,7 +79,10 @@ public class VentaBean {
         direccion = new Direccion();
         detalleVenta = new DetalleVenta();
         envio = new Envio();
-        productos = vendedorServicio.listarProducto();
+        inventarioSalida = new InventarioSalida();
+        producto = new Producto();
+        productos = vendedorServicio.obtenerProductosVendedor(vendedorSesion.getCodigo());
+        cantidad = 0;
 
         ventasSeleccionados = new ArrayList<>();
         ventasVendedor = vendedorServicio.obtenerVentasVendedor(vendedorSesion.getCodigo());
@@ -93,34 +99,64 @@ public class VentaBean {
 
             if(!editar) {
 
-                cliente = vendedorServicio.obtenerClienteCedula(cedulaCliente);
-                Direccion direccionRegistro = vendedorServicio.crearDireccion(direccion);
-                envio.setDireccion(direccionRegistro);
-                envio.setTransportador(transportador);
-                Envio envioRegistro = vendedorServicio.crearEnvio(envio);
-                venta.setCliente(cliente);
-                venta.setFecha(LocalDate.now());
-                venta.setEnvio(envioRegistro);
-                venta.setVendedor(vendedorSesion);
-                venta.setDescripcion("Venta Pendiente");
-                Venta ventaRegistro = vendedorServicio.crearVenta(venta);
-                detalleVenta.setVenta(ventaRegistro);
-
-                detalleVenta.setPrecioTotal(detalleVenta.getCantidad()*detalleVenta.getProducto().getPrecio());
-                DetalleVenta detalleVentaRegistro = vendedorServicio.crearDetalleVenta(detalleVenta);
+                for (Producto productoL : productos){
+                    if(producto.getCodigo().equals(productoL.getCodigo())){
+                        producto = productoL;
+                    }
+                }
+                System.out.println("cant detv: " + detalleVenta.getCantidad());
+                System.out.println("cant prod: " + producto.getStock());
 
 
+               if(detalleVenta.getCantidad()<= producto.getStock()){
 
-                cliente = new Cliente();
-                direccion = new Direccion();
-                venta = new Venta();
-                detalleVenta = new DetalleVenta();
-                envio = new Envio();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Registro Exitoso");
-                FacesContext.getCurrentInstance().addMessage("mensaje_registro_venta", facesMessage);
+                    cliente = vendedorServicio.obtenerClienteCedula(cedulaCliente);
+                    Direccion direccionRegistro = vendedorServicio.crearDireccion(direccion);
+                    envio.setDireccion(direccionRegistro);
+                    Envio envioRegistro = vendedorServicio.crearEnvio(envio);
+                    venta.setCliente(cliente);
+                    venta.setFecha(LocalDate.now());
+                    venta.setEnvio(envioRegistro);
+                    venta.setVendedor(vendedorSesion);
+                    venta.setDescripcion("Venta Pendiente");
+                    Venta ventaRegistro = vendedorServicio.crearVenta(venta);
+                    detalleVenta.setVenta(ventaRegistro);
+                    detalleVenta.setProducto(producto);
+
+
+                    detalleVenta.setPrecioTotal(detalleVenta.getCantidad()*detalleVenta.getProducto().getPrecio());
+                    DetalleVenta detalleVentaRegistro = vendedorServicio.crearDetalleVenta(detalleVenta);
+
+                    inventarioSalida.setCantidad(detalleVenta.getCantidad());
+                    inventarioSalida.setFechaSalida(LocalDate.now());
+                    inventarioSalida.setProducto(detalleVenta.getProducto());
+                    inventarioSalida.setVendedor(vendedorSesion);
+
+                    InventarioSalida inventarioSalidaRegistro = vendedorServicio.crearInventarioSalida(inventarioSalida);
+
+                    ventasVendedor.add(ventaRegistro);
+                    productos = vendedorServicio.obtenerProductosVendedor(vendedorSesion.getCodigo());
+
+                    cliente = new Cliente();
+                    direccion = new Direccion();
+                    venta = new Venta();
+                    detalleVenta = new DetalleVenta();
+                    envio = new Envio();
+                    inventarioSalida = new InventarioSalida();
+                    cantidad = 0;
+
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Registro Exitoso");
+                    FacesContext.getCurrentInstance().addMessage("mensaje_registro_venta", facesMessage);
+                }else{
+                    System.out.println("PAILAS PROBLEMAS CON LA CANTIDAD");
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "NO E PUEDE REALIZAR LA COMPRA, NO HAY LA CANTIDAD");
+                    FacesContext.getCurrentInstance().addMessage("mensaje_registro_venta", facesMessage);
+                }
+
             }else {
-
-                vendedorServicio.actualizarVenta(venta);
+                System.out.println("Modificado envio: " + venta.getEnvio().getTransportador().getNombre());
+                Venta ventaActualizada = vendedorServicio.actualizarVenta(venta);
+                System.out.println("Actualziado ya envio: " + ventaActualizada.getEnvio().getTransportador().getNombre());
                 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Actualizacion Exitosa");
                 FacesContext.getCurrentInstance().addMessage("mensaje_registro_venta", facesMessage);
             }
@@ -173,7 +209,6 @@ public class VentaBean {
         this.venta= new Venta();
         editar=false;
     }
-
 
 
 }

@@ -26,7 +26,7 @@ public class ProductoBean {
 
     @Value("#{seguridadBean.vendedor}")
     private Vendedor vendedorSesion;
-    
+
     @Getter @Setter
     private Producto producto;
 
@@ -43,7 +43,8 @@ public class ProductoBean {
     @PostConstruct
     public void init(){
         producto = new Producto();
-        productos = vendedorServicio.listarProducto();
+        //productos = vendedorServicio.listarProducto();
+        productos = vendedorServicio.obtenerProductosVendedor(vendedorSesion.getCodigo());
         productosSeleccionados = new ArrayList<>();
         subcategorias = vendedorServicio.listarSubcategorias();
         editar=false;

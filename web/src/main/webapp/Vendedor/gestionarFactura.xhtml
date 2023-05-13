@@ -9,12 +9,11 @@
 <ui:composition template="/WEB-INF/template.xhtml">
     <ui:define name="title">Gestion Factura</ui:define>
     <ui:define name="content">
-        <p>Contenido de la página de ejemplo factura</p>
-
 
 
         <h:form id="crud_detalleVenta">
 
+            <h1 style="color: #e1e7ee;background-color: #070707; text-decoration: underline ;text-align: center">FACTURAS VENDEDOR</h1>
 
             <p:dataTable id="lista_detalleVentas" value="#{detalleVentaBean.detalleVentas}" var="detalleVenta" paginator="true" rows="10"
                          rowKey="#{detalleVenta.codigo}"

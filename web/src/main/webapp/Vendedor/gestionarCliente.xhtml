@@ -15,14 +15,14 @@
 
             <p:toolbar>
                 <p:toolbarGroup>
-                    <p:commandButton value="Registrar" icon="pi pi-plus" styleClass="ui-button-success me-3" action="#{clienteBean.crearClienteDialog()}" update="dialogo_crear" oncomplete="PF('registrar_cliente').show()" />
+                    <p:commandButton style="background-color: #25cff2; color: white; border-color: #25cff2" value="Registrar" icon="pi pi-plus" styleClass="ui-button-success me-3" action="#{clienteBean.crearClienteDialog()}" update="dialogo_crear" oncomplete="PF('registrar_cliente').show()" />
                     <p:commandButton id="boton_borrar" value="#{clienteBean.mensajeBorrar}" icon="pi pi-trash" disabled="#{clienteBean.clientesSeleccionados.size()==0}" styleClass="ui-button-danger" action="#{clienteBean.eliminarCliente()}" update="crud_cliente:lista_clientes,@this" />
                 </p:toolbarGroup>
             </p:toolbar>
 
 
 
-            <p:dataTable id="lista_clientes" value="#{clienteBean.clientes}" var="cliente" paginator="true" rows="10"
+            <p:dataTable style="border: 3px solid black" id="lista_clientes" value="#{clienteBean.clientes}" var="cliente" paginator="true" rows="10"
                          rowKey="#{cliente.codigo}"
                          paginatorPosition="bottom" rowSelectMode="add"
                          selection="#{clienteBean.clientesSeleccionados}">
@@ -72,7 +72,7 @@
                 </p:column>
 
                 <p:column headerText="UPDATE" >
-                    <p:commandButton styleClass="edit-button rounded-button ui-button-success" icon="pi pi-pencil" action="#{clienteBean.seleccionarClientes(cliente)}" oncomplete="PF('actualizar_cliente').show()" update="dialogo_actualizar"/>
+                    <p:commandButton style="background-color: #25cff2" styleClass="edit-button rounded-button ui-button-success" icon="pi pi-pencil" action="#{clienteBean.seleccionarClientes(cliente)}" oncomplete="PF('actualizar_cliente').show()" update="dialogo_actualizar"/>
                 </p:column>
 
             </p:dataTable>
@@ -124,7 +124,7 @@
 
 
                     </h:panelGrid>
-                    <p:commandButton value="#{clienteBean.mensajeCrearEditar}" action= "#{clienteBean.registrarCliente()}" icon="pi pi-plus-circle" update="@form,crud_cliente:lista_clientes"/>
+                    <p:commandButton style="background-color: #25cff2" value="#{clienteBean.mensajeCrearEditar}" action= "#{clienteBean.registrarCliente()}" icon="pi pi-plus-circle" update="@form,crud_cliente:lista_clientes"/>
                     <p:growl for="mensaje_registro_cliente" showDetail="true"/>
 
                 </h:form>
@@ -183,7 +183,7 @@
                     <p:messages for="tipo_direccionA"/>
 
                 </h:panelGrid>
-                <p:commandButton value="#{clienteBean.mensajeCrearEditar}" action= "#{clienteBean.registrarCliente()}" icon="pi pi-plus-circle" update="@form,crud_cliente:lista_clientes"/>
+                <p:commandButton style="background-color: #25cff2" value="#{clienteBean.mensajeCrearEditar}" action= "#{clienteBean.registrarCliente()}" icon="pi pi-plus-circle" update="@form,crud_cliente:lista_clientes"/>
                 <p:growl for="mensaje_registro_cliente" showDetail="true"/>
 
             </h:form>

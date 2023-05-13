@@ -162,4 +162,14 @@ public interface VendedorServicio {
     List<Subcategoria> listarSubcategorias();
 
 
+    //--------------------------------------- PRODUCTOS VENDEDOR----------------------------------
+
+    List<Producto> obtenerProductosVendedor(Integer codigo);
+
+
+
+    //-------------------------------------- INVENTARIO SALIDA-------------------------------------
+
+    InventarioSalida crearInventarioSalida(InventarioSalida inventarioSalida) throws Exception;
+
 }

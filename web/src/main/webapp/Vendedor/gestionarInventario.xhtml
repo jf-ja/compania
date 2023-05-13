@@ -9,7 +9,131 @@
 <ui:composition template="/WEB-INF/template.xhtml">
     <ui:define name="title">Gestion Inventario</ui:define>
     <ui:define name="content">
-        <p>Contenido de la página de ejemplo inventario</p>
+
+        <h:form id="crud_inventarioEntrada">
+
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton style="background-color: #25cff2;border-color: #25cff2" value="Registrar" icon="pi pi-plus" styleClass="ui-button-success me-3" action="#{inventarioEntradaBean.crearInventarioEntradaDialog()}" update="dialogo_crear" oncomplete="PF('registrar_inventarioEntrada').show()" />
+                    <p:commandButton id="boton_borrar" value="#{inventarioEntradaBean.mensajeBorrar}" icon="pi pi-trash" disabled="#{inventarioEntradaBean.inventarioEntradasSeleccionados.size()==0}" styleClass="ui-button-danger" action="#{inventarioEntradaBean.eliminarInventarioEntrada()}" update="crud_inventarioEntrada:lista_inventarioEntradas,@this" />
+                </p:toolbarGroup>
+            </p:toolbar>
+
+
+
+            <p:dataTable id="lista_inventarioEntradas" value="#{inventarioEntradaBean.inventarioEntradas}" var="inventarioEntrada" paginator="true" rows="10"
+                         rowKey="#{inventarioEntrada.codigo}"
+                         paginatorPosition="bottom" rowSelectMode="add"
+                         selection="#{inventarioEntradaBean.inventarioEntradasSeleccionados}">
+
+                <p:ajax event="rowSelect" update="crud_inventarioEntrada:boton_borrar" />
+                <p:ajax event="rowUnselect" update="crud_inventarioEntrada:boton_borrar" />
+                <p:ajax event="rowSelectCheckbox" update="crud_inventarioEntrada:boton_borrar" />
+                <p:ajax event="rowUnselectCheckbox" update="crud_inventarioEntrada:boton_borrar" />
+                <p:ajax event="toggleSelect" update="crud_inventarioEntrada:boton_borrar" />
+
+                <p:column selectionMode="multiple" exportable="false" />
+
+                <p:column headerText="Codigo" >
+                    <h:outputText value="#{inventarioEntrada.codigo}"/>
+                </p:column>
+
+                <p:column headerText="Producto" >
+                    <h:outputText value="#{inventarioEntrada.producto.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Cantidad" >
+                    <h:outputText value="#{inventarioEntrada.cantidad}"/>
+                </p:column>
+
+                <p:column headerText="Descripcion" >
+                    <h:outputText value="#{inventarioEntrada.descripcion}"/>
+                </p:column>
+
+                <p:column headerText="Fecha" >
+                    <h:outputText value="#{inventarioEntrada.fechaEntrada}"/>
+                </p:column>
+
+                <p:column headerText="" >
+                    <p:commandButton style="background-color: #25cff2" styleClass="edit-button rounded-button ui-button-success" icon="pi pi-pencil" action="#{inventarioEntradaBean.seleccionarInventarioEntrada(inventarioEntrada)}" oncomplete="PF('actualizar_inventarioEntrada').show()" update="dialogo_actualizar"/>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+        <div>
+            <p:dialog id="dialogo_crear" widgetVar="registrar_inventarioEntrada" modal="true" header="#{inventarioEntradaBean.mensajeCrearEditar}" showEffect="fade">
+
+                <h1>REGISTRAR INVENTARIO</h1>
+
+                <h:form>
+                    <h:panelGrid columns="3" cellpadding="5" >
+
+
+                        <p:outputLabel style="text-align: left" for="nombre_producto" value = "Producto: "/>
+                        <p:selectOneMenu id="nombre_producto" value="#{inventarioEntradaBean.inventarioEntrada.producto}" converter="#{productoConverter}">
+                            <f:selectItem itemLabel="Seleccione el producto" noSelectionOption="true" itemValue="#{null}"/>
+                            <f:selectItems value="#{inventarioEntradaBean.productos}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto}"/>
+                        </p:selectOneMenu>
+
+                        <div class="field col-12 md:col-4">
+                            <p:outputLabel style="text-align: left" for="cantidad_InventarioEntrada" value = "Cantidad: "/>
+                            <p:spinner id="cantidad_InventarioEntrada" value="#{inventarioEntradaBean.inventarioEntrada.cantidad}"/>
+                        </div>
+
+
+                    </h:panelGrid>
+                    <p:commandButton style="background-color: #25cff2" value="#{inventarioEntradaBean.mensajeCrearEditar}" action= "#{inventarioEntradaBean.registrarInventarioEntrada()}" icon="pi pi-plus-circle" update="@form,crud_inventarioEntrada:lista_inventarioEntradas"/>
+                    <p:growl for="mensaje_registro_inventarioEntrada" showDetail="true"/>
+
+                </h:form>
+            </p:dialog>
+        </div>
+
+
+
+
+        <!-- _______________________________________ACTUALIZAR_________________________________________ -->
+
+
+
+
+        <p:dialog id="dialogo_actualizar" widgetVar="actualizar_inventarioEntrada" modal="true" header="#{inventarioEntradaBean.mensajeCrearEditar}" showEffect="fade">
+
+            <h1>ACTUALIZAR INVENTARIO</h1>
+
+            <h:form>
+                <h:panelGrid columns="3" cellpadding="5" >
+
+                    <p:outputLabel style="text-align: left" for="nombre_productoA" value = "Producto: "/>
+                    <p:selectOneMenu id="nombre_productoA" value="#{inventarioEntradaBean.inventarioEntrada.producto}" converter="#{productoConverter}">
+                        <f:selectItem itemLabel="Seleccione el producto" noSelectionOption="true" itemValue="#{null}"/>
+                        <f:selectItems value="#{inventarioEntradaBean.productos}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto}"/>
+                    </p:selectOneMenu>
+
+
+                    <div class="field col-12 md:col-4">
+                        <p:outputLabel style="text-align: left" for="cantidad_InventarioEntradaA" value = "Cantidad: "/>
+                        <p:spinner id="cantidad_InventarioEntradaA" value="#{inventarioEntradaBean.inventarioEntrada.cantidad}"/>
+                    </div>
+
+                    <p:outputLabel style="text-align: left" for="descripcion_inventario" value = "Estado: "/>
+                    <p:selectOneMenu id="descripcion_inventario" value="#{inventarioEntradaBean.inventarioEntrada.descripcion}" required="true">
+                        <f:selectItem itemLabel="Entrega en Proceso" itemValue="Entrega en Proceso" />
+                        <f:selectItem itemLabel="Entrega Completada" itemValue="Entrega Completada" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="fecha_inventario" value = "Fecha: "/>
+                    <p:inputText id="fecha_inventario" value = "#{inventarioEntradaBean.inventarioEntrada.fechaEntrada}" required="true" readonly="true"/>
+                    <p:messages for="fecha_inventario"/>
+
+                </h:panelGrid>
+                <p:commandButton value="#{inventarioEntradaBean.mensajeCrearEditar}" action= "#{inventarioEntradaBean.registrarInventarioEntrada()}" icon="pi pi-plus-circle" update="@form,crud_inventarioEntrada:lista_inventarioEntradas"/>
+                <p:growl for="mensaje_registro_inventarioEntrada" showDetail="true"/>
+
+            </h:form>
+        </p:dialog>
+
     </ui:define>
 </ui:composition>
 </html>

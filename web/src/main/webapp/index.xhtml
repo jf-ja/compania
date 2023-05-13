@@ -11,9 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Compania Login</title>
 </h:head>
-<h:body style="background-color: #2c3034">
+<h:body style="background-color: #000000">
     <div>
-        <p:panel header="LOGIN VENDEDOR">
+        <p:panel style="background-color: #25cff2;width: 500px; margin-left: 400px; text-align: center" header="LOGIN VENDEDOR">
             <h:form  rendered="#{!seguridadBean.autenticado}">
                 <h:panelGrid columns="3" cellpadding="5">
                     <p:outputLabel for="email_login" value="Email:" />
@@ -24,7 +24,7 @@
                     />
                     <p:message for="password_login" />
                 </h:panelGrid>
-                <p:commandButton value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion()}"
+                <p:commandButton style="margin-top: 20px;" value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion()}"
                                  styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left" />
                 <p:growl for="login-bean" showDetail="true" />
             </h:form>

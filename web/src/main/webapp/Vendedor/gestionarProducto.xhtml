@@ -14,7 +14,7 @@
 
             <p:toolbar>
                 <p:toolbarGroup>
-                    <p:commandButton value="Registrar" icon="pi pi-plus" styleClass="ui-button-success me-3" action="#{productoBean.crearProductoDialog()}" update="dialogo_crear" oncomplete="PF('registrar_producto').show()" />
+                    <p:commandButton style="background-color: #25cff2;border-color: #25cff2" value="Registrar" icon="pi pi-plus" styleClass="ui-button-success me-3" action="#{productoBean.crearProductoDialog()}" update="dialogo_crear" oncomplete="PF('registrar_producto').show()" />
                     <p:commandButton id="boton_borrar" value="#{productoBean.mensajeBorrar}" icon="pi pi-trash" disabled="#{productoBean.productosSeleccionados.size()==0}" styleClass="ui-button-danger" action="#{productoBean.eliminarProducto()}" update="crud_producto:lista_productos,@this" />
                 </p:toolbarGroup>
             </p:toolbar>
@@ -63,7 +63,7 @@
                 </p:column>
 
                 <p:column headerText="" >
-                    <p:commandButton styleClass="edit-button rounded-button ui-button-success" icon="pi pi-pencil" action="#{productoBean.seleccionarProductos(producto)}" oncomplete="PF('actualizar_producto').show()" update="dialogo_actualizar"/>
+                    <p:commandButton style="background-color: #25cff2" styleClass="edit-button rounded-button ui-button-success" icon="pi pi-pencil" action="#{productoBean.seleccionarProductos(producto)}" oncomplete="PF('actualizar_producto').show()" update="dialogo_actualizar"/>
                 </p:column>
 
             </p:dataTable>
@@ -98,7 +98,7 @@
 
 
                     </h:panelGrid>
-                    <p:commandButton value="#{productoBean.mensajeCrearEditar}" action= "#{productoBean.registrarProducto()}" icon="pi pi-plus-circle" update="@form,crud_producto:lista_productos"/>
+                    <p:commandButton style="background-color: #25cff2" value="#{productoBean.mensajeCrearEditar}" action= "#{productoBean.registrarProducto()}" icon="pi pi-plus-circle" update="@form,crud_producto:lista_productos"/>
                     <p:growl for="mensaje_registro_producto" showDetail="true"/>
 
                 </h:form>
@@ -144,7 +144,7 @@
                     <p:messages for="stock_productoA"/>
 
                 </h:panelGrid>
-                <p:commandButton value="#{productoBean.mensajeCrearEditar}" action= "#{productoBean.registrarProducto()}" icon="pi pi-plus-circle" update="@form,crud_producto:lista_productos"/>
+                <p:commandButton style="background-color: #25cff2" value="#{productoBean.mensajeCrearEditar}" action= "#{productoBean.registrarProducto()}" icon="pi pi-plus-circle" update="@form,crud_producto:lista_productos"/>
                 <p:growl for="mensaje_registro_producto" showDetail="true"/>
 
             </h:form>
