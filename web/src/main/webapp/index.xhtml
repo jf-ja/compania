@@ -10,9 +10,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Compania Login</title>
+    <h:graphicImage style="max-width: 100%; height: auto; background-size: cover; background-repeat: no-repeat; position: absolute" value="resources/imagenes/logocmp.png"></h:graphicImage>
 </h:head>
 <h:body style="background-color: #000000">
-    <div>
+    <div style="position: relative;z-index: 1">
         <p:panel style="background-color: #25cff2;width: 500px; margin-left: 400px; text-align: center" header="LOGIN VENDEDOR">
             <h:form  rendered="#{!seguridadBean.autenticado}">
                 <h:panelGrid columns="3" cellpadding="5">

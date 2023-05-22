@@ -118,7 +118,7 @@ public class VentaBean {
                     venta.setFecha(LocalDate.now());
                     venta.setEnvio(envioRegistro);
                     venta.setVendedor(vendedorSesion);
-                    venta.setDescripcion("Venta Pendiente");
+                    venta.setDescripcion("Venta Completada");
                     Venta ventaRegistro = vendedorServicio.crearVenta(venta);
                     detalleVenta.setVenta(ventaRegistro);
                     detalleVenta.setProducto(producto);

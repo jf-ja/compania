@@ -164,9 +164,16 @@
                         <f:selectItems value="#{ventaBean.trasnportadores}" var="transportador" itemLabel="#{transportador.nombre}" itemValue="#{transportador}"/>
                     </p:selectOneMenu>
 
+                    <hr></hr>
+                    <p:outputLabel style="text-align: left" for="descripcion_inventario" value = "Estado: "/>
+                    <p:selectOneMenu id="descripcion_inventario" value="#{ventaBean.venta.descripcion}" required="true">
+                        <f:selectItem itemLabel="Entrega en Proceso" itemValue="Venta Pendiente" />
+                        <f:selectItem itemLabel="Entrega Completada" itemValue="Venta Completada" />
+                    </p:selectOneMenu>
+
                 </h:panelGrid>
                 <p:commandButton style="background-color: #25cff2" value="#{ventaBean.mensajeCrearEditar}" action= "#{ventaBean.registrarVenta()}" icon="pi pi-plus-circle" update="@form,crud_venta:lista_ventas"/>
-                <p:growl for="mensaje_registro_producto" showDetail="true"/>
+                <p:growl for="mensaje_registro_venta" showDetail="true"/>
 
             </h:form>
         </p:dialog>

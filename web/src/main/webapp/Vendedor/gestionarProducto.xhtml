@@ -139,6 +139,7 @@
                         <f:selectItems value="#{productoBean.subcategorias}" var="subcategoria" itemLabel="#{subcategoria.nombre}" itemValue="#{subcategoria}"/>
                     </p:selectOneMenu>
 
+                    <hr></hr>
                     <p:outputLabel for="stock_productoA" value = "Stock: "/>
                     <p:inputText id="stock_productoA" value = "#{productoBean.producto.stock}" required="true"/>
                     <p:messages for="stock_productoA"/>
